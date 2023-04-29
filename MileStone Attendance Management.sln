@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MileStone Attendance Management", "MileStone Attendance Management.csproj", "{54ED9964-36ED-4088-823C-90A993D02EBD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Me & Myself", "..\Me & Myself\Me & Myself.csproj", "{FE1CD5D7-6DC6-47A7-9659-05A4B18CAEFF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{54ED9964-36ED-4088-823C-90A993D02EBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54ED9964-36ED-4088-823C-90A993D02EBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54ED9964-36ED-4088-823C-90A993D02EBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54ED9964-36ED-4088-823C-90A993D02EBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE1CD5D7-6DC6-47A7-9659-05A4B18CAEFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE1CD5D7-6DC6-47A7-9659-05A4B18CAEFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE1CD5D7-6DC6-47A7-9659-05A4B18CAEFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE1CD5D7-6DC6-47A7-9659-05A4B18CAEFF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9506BE60-FC4F-419A-8181-BA916DD9A762}
+	EndGlobalSection
+EndGlobal

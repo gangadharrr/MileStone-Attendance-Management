@@ -1,0 +1,78 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+   
+}
+
+<div class="row">
+<h3>@ViewData["Title"]</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+    <div class="col-md-6">
+        <form id="profile-form" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating">
+                <input asp-for="Username" class="form-control" disabled />
+                <label asp-for="Username" class="form-label"></label>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.PhoneNumber" class="form-control" />
+                <label asp-for="Input.PhoneNumber" class="form-label"></label>
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+        </form>
+    </div>
+   
+    <div class="col-md-6" align="center">
+        <div id="bttn-container">
+           
+            <img id="profile-picture" type="image" src='~/Images/@Model.profilePicture' alt="Profile Picture">
+            <label for="image-input">
+                <img type="image" src="/Images/Edit-Button.png" alt="Edit Button" height="50px" width="50px">
+            </label>
+            <form id="image-input-form" method="post" enctype="multipart/form-data">
+                <input id="image-input" asp-for="Input.ProfilePicture" type="file" accept="image/*" onchange="document.getElementById('image-input-form').submit()" height="50px" width="50px" hidden />
+            </form>
+        </div>
+    </div>
+
+ </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<style>
+    #profile-picture {
+        height: 200px;
+        width: 200px;
+        border-radius: 50%;
+    }
+
+    #bttn-container {
+        height: 200px;
+        width: 200px;
+        background-color: white;
+        position: relative;
+    }
+
+        #bttn-container:hover > #profile-picture {
+            -webkit-filter: grayscale(1);
+            -webkit-transform: scale(1.01);
+        }
+
+        #bttn-container:hover > #image-input {
+            display: block;
+        }
+
+    #image-input {
+        display: none;
+        position: absolute;
+        top:80px;
+        left:80px;
+        
+    }
+</style>
+
