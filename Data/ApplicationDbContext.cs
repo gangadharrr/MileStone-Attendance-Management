@@ -11,6 +11,7 @@ namespace MileStone_Attendance_Management.Data
         {
         }
         public DbSet<Degrees> Degrees { get; set; }
+        public DbSet<Branches> Branches { get; set; }
         /*  protected override void OnModelCreating(ModelBuilder builder)
           {
               *//*builder.Entity<Students>()

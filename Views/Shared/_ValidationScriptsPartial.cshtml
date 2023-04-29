@@ -1,8 +1,15 @@
 ﻿<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 <script>
-    function myDeleteDegree(link, id) {
-        let text = "Are you sure you want to delete Degree " + id + " ?";
+    function myDeleteDegree(link, Message) {
+        let text = "Are you sure you want to delete Degree " + Message + " ?";
+        let _link = link;
+        if (confirm(text) == true) {
+
+            window.open(link, '_self');
+        }
+    } function myDeleteBranch(link, Message) {
+        let text = "Are you sure you want to delete Branch " + Message + " ?";
         let _link = link;
         if (confirm(text) == true) {
 

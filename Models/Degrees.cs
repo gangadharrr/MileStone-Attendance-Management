@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MileStone_Attendance_Management.Models
 {
@@ -13,6 +14,6 @@ namespace MileStone_Attendance_Management.Models
         [Display(Name = "Normalized Degree")]
         [Required(ErrorMessage = "Normalized Degree Name is Required")]
         public string NormalizedDegree { get; set; }
-
+        public ICollection<Branches> Branches { get; set; }
     }
 }

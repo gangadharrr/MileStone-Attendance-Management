@@ -1,0 +1,90 @@
+﻿@model IEnumerable<MileStone_Attendance_Management.Models.Branches>
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NormalizedBranch)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Branch)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NormalizedDegree)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Degree)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NormalizedBranch)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Branch)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NormalizedDegree)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Degree)
+                </td>
+                <td style="padding:10px 0px">
+                    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" class="btn btn-warning" asp-route-id="@item.Id">Details</a> |
+                    <button asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id" onclick='myDeleteBranch("/Branches/Delete/@item.Id","@item.NormalizedDegree-@item.NormalizedBranch")'>Delete</button>
+                </td>
+            </tr>
+        }
+        <tr>
+            <form asp-action="Create" method="post">
+            <td>
+                <input name="NormalizedBranch" class="form-control form-control-sm" placeholder="@Html.DisplayNameFor(model => model.NormalizedBranch)" />
+            </td>
+            <td>
+                <input name="Branch" class="form-control form-control-sm" placeholder="@Html.DisplayNameFor(model => model.Branch)" />
+            </td>
+            <td>
+                <p class="form-control form-control-sm" name="Degree" id="Degree"> Select Degree</p>
+            </td>
+            <td>
+                <select class="form-select form-select-sm" name="NormalizedDegree" id="NormalizedDegree">
+                    <option value="" selected disabled hidden>@Html.DisplayNameFor(model => model.Degree)</option>
+                        @foreach (var item in ViewBag.DegreeList)
+                        {
+                        <option value="@item.NormalizedDegree">@item.Degree</option>
+
+                        }
+                </select>
+
+            </td>
+            <td >
+                <button type="submit" class="btn btn-success">Apply</button> |   
+                <a asp-action="Index" class="btn btn-warning">Cancel</a>
+            </td>
+            </form>
+        </tr>
+    </tbody>
+</table>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+<script>
+    document.getElementById("NormalizedDegree").onchange = function () {
+        document.getElementById("Degree").innerHTML = document.getElementById("NormalizedDegree").value;
+    }
+
+</script>

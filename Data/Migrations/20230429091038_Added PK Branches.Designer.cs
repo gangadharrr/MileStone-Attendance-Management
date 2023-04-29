@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MileStone_Attendance_Management.Data;
 
@@ -11,9 +12,10 @@ using MileStone_Attendance_Management.Data;
 namespace MileStone_Attendance_Management.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230429091038_Added PK Branches")]
+    partial class AddedPKBranches
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -240,17 +242,21 @@ namespace MileStone_Attendance_Management.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("DegreesNormalizedDegree")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("NormalizedBranch")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedDegree")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NormalizedDegree");
+                    b.HasIndex("DegreesNormalizedDegree");
 
                     b.ToTable("Branches");
                 });
@@ -326,17 +332,12 @@ namespace MileStone_Attendance_Management.Data.Migrations
             modelBuilder.Entity("MileStone_Attendance_Management.Models.Branches", b =>
                 {
                     b.HasOne("MileStone_Attendance_Management.Models.Degrees", "Degrees")
-                        .WithMany("Branches")
-                        .HasForeignKey("NormalizedDegree")
+                        .WithMany()
+                        .HasForeignKey("DegreesNormalizedDegree")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Degrees");
-                });
-
-            modelBuilder.Entity("MileStone_Attendance_Management.Models.Degrees", b =>
-                {
-                    b.Navigation("Branches");
                 });
 #pragma warning restore 612, 618
         }
