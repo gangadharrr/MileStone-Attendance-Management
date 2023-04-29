@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MileStone_Attendance_Management.Models;
 
 namespace MileStone_Attendance_Management.Data
 {
@@ -9,5 +10,16 @@ namespace MileStone_Attendance_Management.Data
             : base(options)
         {
         }
+        public DbSet<Degrees> Degrees { get; set; }
+        /*  protected override void OnModelCreating(ModelBuilder builder)
+          {
+              *//*builder.Entity<Students>()
+                  .HasIndex(u => u.RollNumber)
+                  .IsUnique();*//*
+              builder.Entity<Degrees>()
+                  .HasIndex(u => u.Degree)
+                  .IsUnique();
+
+          }*/
     }
 }
