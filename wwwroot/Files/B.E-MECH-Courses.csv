@@ -1,0 +1,17 @@
+CourseId,CourseType,CourseName,Semester,NormalizedDegree,NormalizedBranch
+SHSA1101,THEORY,Technical English,1,BE,MECH
+SMTA1101,THEORY,Engineering Mathematics - I,1,BE,MECH
+SCYA1101,THEORY,Engineering Chemistry,2,BE,MECH
+SCYA2101,PRACTICAL,Engineering Chemistry Lab,2,BE,MECH
+SBTA1101,THEORY,Environmental Science and Engineering,3,BE,MECH
+SEEA1103,THEORY,Electrical and Electronics Engineering,3,BE,MECH
+SMEA1201,THEORY,Engineering Materials and Metallurgy,4,BE,MECH
+SMEA2201,PRACTICAL,Workshop Practice,4,BE,MECH
+SMTA1201,THEORY,Engineering Mathematics - II,5,BE,MECH
+SMEA1102,THEORY,Engineering Drawing,5,BE,MECH
+SPHA1101,THEORY,Physics for Engineers,6,BE,MECH
+SPHA2101,PRACTICAL,Physics Lab,6,BE,MECH
+SCSA1202,THEORY,Programming with C and C++,7,BE,MECH
+SCSA1203,THEORY,Data Structures,7,BE,MECH
+SCSA1201,THEORY,Fundamentals of Digital Systems,8,BE,MECH
+SEIA2202,PRACTICAL,Digital Systems Lab,8,BE,MECH

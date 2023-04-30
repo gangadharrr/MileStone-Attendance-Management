@@ -65,13 +65,20 @@ namespace MileStone_Attendance_Management.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Degree,NormalizedDegree")] Degrees degrees)
         {
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
+            try
             {
                 _context.Add(degrees);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(degrees);
+            catch(Exception e)
+            {
+                    Console.WriteLine(e.Message);
+            }
+            return _context.Degrees != null ?
+                          View(_context.Degrees.ToList()) :
+                          Problem("Entity set 'ApplicationDbContext.Degrees'  is null.");
         }
 
         // GET: Degrees/Edit/5

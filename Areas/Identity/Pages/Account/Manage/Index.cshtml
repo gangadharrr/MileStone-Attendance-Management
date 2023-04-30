@@ -30,7 +30,7 @@
            
             <img id="profile-picture" type="image" src='~/Images/@Model.profilePicture' alt="Profile Picture">
             <label for="image-input">
-                <img type="image" src="/Images/Edit-Button.png" alt="Edit Button" height="50px" width="50px">
+                <img type="image" src="/Images/Edit-Button.png" alt="Edit Button">
             </label>
             <form id="image-input-form" method="post" enctype="multipart/form-data">
                 <input id="image-input" asp-for="Input.ProfilePicture" type="file" accept="image/*" onchange="document.getElementById('image-input-form').submit()" height="50px" width="50px" hidden />

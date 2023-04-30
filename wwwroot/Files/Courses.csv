@@ -1,0 +1,53 @@
+CourseId,CourseType,CourseName
+SHSA1101,THEORY,Technical English
+SMTA1101,THEORY,Engineering Mathematics - I
+SCYA1101,THEORY,Engineering Chemistry
+SCYA2101,PRACTICAL,Engineering Chemistry Lab
+SBTA1101,THEORY,Environmental Science and Engineering
+SEEA1103,THEORY,Electrical and Electronics Engineering
+SCSA1101,THEORY,Python and Problem Solving Techniques
+SCSA2101,PRACTICAL,Python and Problem Solving Techniques Lab
+SMTA1201,THEORY,Engineering Mathematics - II
+SMEA1102,THEORY,Engineering Drawing
+SPHA1101,THEORY,Physics for Engineers
+SPHA2101,PRACTICAL,Physics Lab
+SCSA1202,THEORY,Programming with C and C++
+SCSA1203,THEORY,Data Structures
+SCSA1201,THEORY,Fundamentals of Digital Systems
+SEIA2202,PRACTICAL,Digital Systems Lab
+SECA1302,THEORY,Electronic Circuits - I
+SECA2302,PRACTICAL,Electronic Circuits - I Lab
+SMEA1201,THEORY,Engineering Materials and Metallurgy
+SMEA2201,PRACTICAL,Workshop Practice
+STA1101,THEORY,Part I Tamil I
+SFR1101,THEORY,Part I French I
+SHSA1102,THEORY,Part II General English I
+SPYA2201,PRACTICAL,Experimental Psychology I
+SPYA1101,THEORY,Basic Psychology I
+SPYA1102,THEORY,Biological Psychology
+SVCA1503,THEORY,Art and Aesthetic
+SPYA2301,PRACTICAL,Experimental Psychology II
+SBSA2102,THEORY,Computer Applications Lab
+STA1102,THEORY,Part I Tamil II
+SFR1102,THEORY,Part I French II
+SPYA2401,PRACTICAL,Experimental Psychology III
+SHS1111,CORE,Communicative English- I
+SAL1103,CORE,Law of Contracts and Specific Relief
+SAL1104,CORE,Law of Torts including MV Accident and Consumer Protection Laws
+SAL1303,CORE,Constitutional Law- I
+SAL1304,CORE,Family Law- I
+STA1103,AECC,Tamil
+SFR1103,AECC,French
+SBA1404,SEC,Personality Development
+SAL1203,CORE,Special Contracts
+SAL1204,CORE,"Jurisprudence (Legal method, Indian legal system and basic theory of law)"
+SAL1401,CORE,Constitutional Law- II
+SAL1402,CORE,Family Law- II
+SAL1205,AECC,Environmental Studies
+SAL1503,SEC,Legal Language and Legal Writing
+SAL1305,CORE,Law of Crimes- I (IPC)
+SAL1701,CORE,Public International Law
+SAL1702,CORE,Property Law
+SAL1801,CORE,Law of Evidence
+SAL1802,CORE,Administrative Law
+SBA1403,AECC,Disaster Management
