@@ -27,7 +27,7 @@ namespace MileStone_Attendance_Management.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
-
+        
         public CoursesController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
@@ -78,9 +78,16 @@ namespace MileStone_Attendance_Management.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(courses);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {   
+                    _context.Add(courses);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception e)
+                {
+                    return Problem(e.Message);
+                }
             }
             return _context.Courses != null ?
                           View(_context.Courses.ToList()) :
@@ -170,18 +177,34 @@ namespace MileStone_Attendance_Management.Controllers
                           new List<Courses>();
             if (courses != null)
             {
-                foreach (var item in courses)
+                try 
                 {
-                    Delete(item.CourseId);
+                    foreach (var item in courses)
+                    { 
+                        Delete(item.CourseId);
+                    }
+
+                    return RedirectToAction(nameof(Index));
+                }
+                catch(DBConcurrencyException ex)
+                {
+                    return Problem(ex.Message);
 
                 }
+                catch (Exception ex)
+                {
+                    return Problem(ex.Message);
+                }
+
             }
-            
             return RedirectToAction(nameof(Index));
-        }
+            
+        } 
+        
 
         [HttpPost]
-        public IActionResult Index(IFormFile UploadedFile)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Index(IFormFile UploadedFile)
         {
             if (Request != null)
             {
@@ -206,18 +229,25 @@ namespace MileStone_Attendance_Management.Controllers
                     {
                         if (_firstEntryLoop)
                         {
-                            _firstEntryLoop = false;
-                            var course = new Courses();
-                            course.CourseId = csvReader.GetField<string>(0);
-                            course.CourseType = csvReader.GetField<string>(1);
-                            course.CourseName = csvReader.GetField<string>(2);
-                            if (csvReader.ColumnCount==3 && course.CourseId == "CourseId" && course.CourseType == "CourseType" && course.CourseName == "CourseName")
-                            {
-                                continue;
+                            try 
+                            { 
+                                _firstEntryLoop = false;
+                                var course = new Courses();
+                                course.CourseId = csvReader.GetField<string>(0);
+                                course.CourseType = csvReader.GetField<string>(1);
+                                course.CourseName = csvReader.GetField<string>(2);
+                                if (course.CourseId == "CourseId" && course.CourseType == "CourseType" && course.CourseName == "CourseName")
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    return Problem("Incorrect Format of Fields Try Again");
+                                }
                             }
-                            else
+                            catch(Exception ex) 
                             {
-                                return Problem("Incorrect Format of Fields Try Again");
+                                Problem(ex.Message);
                             }
                         }
                         else 
@@ -229,11 +259,18 @@ namespace MileStone_Attendance_Management.Controllers
                             courseList.Add(course);
                         }
                     }
-                    foreach (var course in courseList){
-                        Create(course);
-                        Console.WriteLine($"-------{course.CourseId} {course.CourseType} {course.CourseName} ");
+                    try
+                    { 
+                        foreach (var course in courseList)
+                        {
+                            _context.Add(course);
+                        }
+                    await _context.SaveChangesAsync();
                     }
-                    
+                    catch(Exception e)
+                    {
+                        return Problem(e.Message);
+                    }
                     return RedirectToAction(nameof(Index));
                 }
             }

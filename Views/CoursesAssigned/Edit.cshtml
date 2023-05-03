@@ -1,0 +1,84 @@
+﻿@model MileStone_Attendance_Management.Models.CoursesAssigned
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+<h4>CoursesAssigned</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label for="SelectedCourseId" class="control-label"></label>
+                <select name="SelectedCourseId" class="form-control" required>
+                    <option value="@Model.CourseId" selected hidden>@Model.CourseId (@ViewBag.Courses[Model.CourseId].CourseName)</option>
+                    @foreach (var item in ViewBag.CourseIds)
+                    {
+                        <option value="@item.CourseId">@item.CourseId (@ViewBag.Courses[item.CourseId].CourseName)</option>
+                    }
+                </select>
+                <span id="SelectedCourseIdError" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="SelectedBranchNdDegree" class="control-label"></label>
+                <select class="form-select" name="SelectedBranchNdDegree" id="SelectedBranchNdDegree" required>
+                    <option value="@ViewBag.SelectedBranchNdDegree" selected hidden>@ViewBag.SelectedBranchNdDegree.Replace("$@","-")</option>
+                    @foreach (var item in ViewBag.BranchNdDegree)
+                    {
+                        <option value="@item">@item.Replace("$@","-")</option>
+                    }
+                </select>
+                <span id="SelectedBranchNdDegreeError" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group" id="SemesterDiv">
+                <br />
+                <select class="form-select" name="Semester" id="Semester" required>
+                    <option value="@Model.Semester" selected hidden>@Model.Semester</option>
+                </select>
+                <span name="SemesterError" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-warning">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $('#SelectedBranchNdDegree').change(function () {
+                var selectedValue = $(this).val();
+                var semesterSelect = $('#Semester');
+                semesterSelect.empty();
+                semesterSelect.append($('<option>', {
+                    value: "",
+                    text: "Select Semester",
+                    selected: true,
+                    disabled: true,
+                    hidden: true
+                }));
+                $.each(@Html.Raw(Json.Serialize(ViewBag.Duration)), function (key, value) {
+                    if (key === selectedValue) {
+                        $.each(value, function (index, semester) {
+                            semesterSelect.append($('<option>', {
+                                value: semester,
+                                text: semester
+                            }));
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

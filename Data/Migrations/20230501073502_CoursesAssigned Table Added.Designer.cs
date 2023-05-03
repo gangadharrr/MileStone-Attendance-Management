@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MileStone_Attendance_Management.Data;
 
@@ -11,9 +12,10 @@ using MileStone_Attendance_Management.Data;
 namespace MileStone_Attendance_Management.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230501073502_CoursesAssigned Table Added")]
+    partial class CoursesAssignedTableAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -240,9 +242,6 @@ namespace MileStone_Attendance_Management.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Duration")
-                        .HasColumnType("int");
-
                     b.Property<string>("NormalizedBranch")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -255,7 +254,7 @@ namespace MileStone_Attendance_Management.Data.Migrations
 
                     b.HasIndex("NormalizedDegree");
 
-                    b.ToTable("Branches", (string)null);
+                    b.ToTable("Branches");
                 });
 
             modelBuilder.Entity("MileStone_Attendance_Management.Models.Courses", b =>
@@ -273,7 +272,7 @@ namespace MileStone_Attendance_Management.Data.Migrations
 
                     b.HasKey("CourseId");
 
-                    b.ToTable("Courses", (string)null);
+                    b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("MileStone_Attendance_Management.Models.CoursesAssigned", b =>
@@ -305,7 +304,7 @@ namespace MileStone_Attendance_Management.Data.Migrations
 
                     b.HasIndex("NormalizedDegree");
 
-                    b.ToTable("CoursesAssigned", (string)null);
+                    b.ToTable("CoursesAssigned");
                 });
 
             modelBuilder.Entity("MileStone_Attendance_Management.Models.Degrees", b =>
@@ -322,7 +321,7 @@ namespace MileStone_Attendance_Management.Data.Migrations
                     b.HasIndex("Degree")
                         .IsUnique();
 
-                    b.ToTable("Degrees", (string)null);
+                    b.ToTable("Degrees");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

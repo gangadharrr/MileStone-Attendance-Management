@@ -1,0 +1,111 @@
+﻿@model MileStone_Attendance_Management.Models.CoursesAssigned
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+<h4>CoursesAssigned</h4>
+<hr>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" id="CoursesAssignedForm" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label for="SelectedCourseId" class="control-label"></label>
+                <select name="SelectedCourseId" class="form-control" required>
+                    <option value="" selected disabled hidden>Select Course</option>
+                    @foreach (var item in ViewBag.CourseIds)
+                    {
+                        <option value="@item.CourseId">@item.CourseId (@ViewBag.Courses[item.CourseId].CourseName)</option>
+                    }
+                </select>
+                <span  id="SelectedCourseIdError" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="SelectedBranchNdDegree" class="control-label"></label>
+                <select class="form-select" name="SelectedBranchNdDegree" id="SelectedBranchNdDegree" required>
+                    <option value="" selected disabled hidden>Select Branch And Degree</option>
+                    @foreach (var item in ViewBag.BranchNdDegree)
+                    {
+                        <option value="@item">@item.Replace("$@","-")</option>
+                    }
+                </select>
+                <span id="SelectedBranchNdDegreeError" class="text-danger"></span>
+            </div>
+         
+                
+            <div class="form-group" id="SemesterDiv">
+                    <br />
+                <select class="form-select" name="Semester" id="Semester" required >
+                </select>
+                <span name="SemesterError" class="text-danger"></span>
+            </div>
+           <br/>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-warning">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.getElementById("CoursesAssignedForm").onsubmit = function myfyn() {
+        if (document.getElementById("SelectedCourseIdError").value == null) {
+            document.getElementById("SelectedCourseIdError").innerHTML="Course is Requried";
+        }
+        if (document.getElementById("SelectedBranchNdDegreeError").value == null) {
+            document.getElementById("SelectedBranchNdDegreeError").innerHTML = "Degree & Branch is Requried";
+        }
+        if (document.getElementById("SemesterError").value == null) {
+            document.getElementById("SemesterError").innerHTML = "Semester is Requried";
+        }
+    }
+    document.getElementById("SelectedCourseId").onchange = function onchangeval()
+    {
+        document.getElementById("SelectedCourseIdError").innerHTML = "";
+
+    }
+    document.getElementById("SelectedBranchNdDegree").onchange= function onchangeval2() {
+        document.getElementById("SelectedBranchNdDegreeError").innerHTML = "";
+
+    }document.getElementById("Semester").onchange= function onchangeval2() {
+        document.getElementById("SemesterError").innerHTML = "";
+    }
+    
+</script>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function() {
+            $("#SemesterDiv").hide();
+    $('#SelectedBranchNdDegree').change(function() {
+        var selectedValue = $(this).val();
+        var semesterSelect = $('#Semester');
+        $("#SemesterDiv").show();
+        semesterSelect.empty();
+        semesterSelect.append($('<option>', {
+            value: '',
+            text: 'Select Semester',
+            selected: true,
+            disabled: true,
+            hidden: true
+        }));
+        $.each(@Html.Raw(Json.Serialize(ViewBag.Duration)), function(key, value) {
+            if (key === selectedValue) {
+                $.each(value, function(index, semester) {
+                    semesterSelect.append($('<option>', {
+                        value: semester,
+                        text: semester
+                    }));
+                });
+            }
+        });
+    });
+});
+    </script>    
+}
+

@@ -5,11 +5,11 @@
 }
 
 <h1>Edit</h1>
-
+<h4>Branches</h4>
 <table class="table">
     <thead>
         <tr>
-            <th>
+            <th style="width:50px">
                 @Html.DisplayNameFor(model => model.NormalizedBranch)
             </th>
             <th>
@@ -21,6 +21,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Degree)
             </th>
+            <th style="width:50px">
+                @Html.DisplayNameFor(model => model.Duration)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -31,7 +34,7 @@
             {
                 <tr>
                     <form asp-action="Edit" method="post">
-                    <td>
+                    <td style="width:50px">
                         <input name="NormalizedBranch" value="@item.NormalizedBranch" class="form-control form-control-sm" placeholder="@Html.DisplayNameFor(model => model.NormalizedBranch)" />
                     </td>
                     <td>
@@ -39,7 +42,6 @@
                     </td>
                     <td>
                         <p class="form-control form-control-sm" name="Degree" id="Degree">@item.NormalizedDegree</p>
-                    </td>
                     <td>
                         <select class="form-select form-select-sm" name="NormalizedDegree" id="NormalizedDegree">
                                 @foreach (var degreeItem in ViewBag.DegreeList)
@@ -57,9 +59,12 @@
                         </select>
 
                     </td>
+                    <td style="width:50px">
+                        <input name="Duration" class="form-control form-control-sm" type="number" value="@item.Duration" placeholder="@Html.DisplayNameFor(model => model.Duration)" />
+                    </td>
                     <td>
-                        <button type="submit" class="btn btn-success">Apply</button> |
-                        <a asp-action="Index" class="btn btn-warning">Cancel</a>
+                        <button type="submit" class="btn btn-sm btn-success">Apply</button> |
+                        <a asp-action="Index" class="btn btn-sm btn-warning">Cancel</a>
                     </td>
                     </form>
                 </tr>
@@ -67,7 +72,7 @@
             else
             {
                 <tr>
-                    <td>
+                    <td style="width:50px">
                         @Html.DisplayFor(modelItem => item.NormalizedBranch)
                     </td>
                     <td>
@@ -79,10 +84,13 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Degree)
                     </td>
-                    <td style="padding:10px 0px">
-                        <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" class="btn btn-warning" asp-route-id="@item.Id">Details</a> |
-                        <button asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id" onclick='myDeleteBranch("/Branches/Delete/@item.Id","@item.NormalizedDegree-@item.NormalizedBranch")'>Delete</button>
+                    <td style="width:50px">
+                        @Html.DisplayFor(modelItem => item.Duration) years
+                    </td>
+                    <td>
+                        <a asp-action="Edit" class="btn btn-sm btn-primary" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" class="btn btn-sm btn-warning" asp-route-id="@item.Id">Details</a> |
+                        <button asp-action="Delete" class="btn btn-sm btn-danger" asp-route-id="@item.Id" onclick='myDeleteBranch("/Branches/Delete/@item.Id","@item.NormalizedDegree-@item.NormalizedBranch")'>Delete</button>
                     </td>
                 </tr>
             }
@@ -101,3 +109,4 @@
     }
 
 </script>
+

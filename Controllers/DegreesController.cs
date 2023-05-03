@@ -74,7 +74,7 @@ namespace MileStone_Attendance_Management.Controllers
             }
             catch(Exception e)
             {
-                    Console.WriteLine(e.Message);
+                    Problem(e.Message);
             }
             return _context.Degrees != null ?
                           View(_context.Degrees.ToList()) :

@@ -142,11 +142,14 @@ namespace MileStone_Attendance_Management.Areas.Identity.Pages.Account.Manage
 
                 }
                 return RedirectToPage();
+              
             }
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             
             return RedirectToPage();
+            
+            
         }
         
     }

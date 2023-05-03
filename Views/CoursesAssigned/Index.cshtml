@@ -1,0 +1,102 @@
+﻿@model IEnumerable<MileStone_Attendance_Management.Models.CoursesAssigned>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="float-parent-element">
+    <div class="float-child-element1">
+        <div class="red"> <h1>Courses Assigned</h1></div>
+    </div>
+    <div class="float-child-element2">
+        <div class="yellow">
+            <form id="UploadedFileForm" method="post" enctype="multipart/form-data">
+                <p align="right">
+                    <a asp-action="Index" class="btn btn-primary">&#8634;</a>
+                    <label for="UploadedFile">
+                        <a for="UploadedFile" class="btn btn-success">+ Add Via File(.csv)</a>
+                    </label>
+                    <input id="UploadedFile" name="UploadedFile" onchange="document.getElementById('UploadedFileForm').submit()" type="file" accept="text/csv" hidden />
+                    <a asp-action="Create" class="btn btn-success">+ Create New</a>
+                    <button asp-action="DeleteAll" class="btn btn-danger" onclick='myDeleteAll("/CoursesAssigned/DeleteAll","Courses Assigned")'>Delete All</button>
+
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Courses.CourseId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Courses.CourseType)
+            </th>
+            <th width="300px">
+                @Html.DisplayNameFor(model => model.Courses.CourseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Semester)
+            </th>
+            <th width="50px">
+                @Html.DisplayNameFor(model => model.Degrees.NormalizedDegree)
+            </th>
+            <th width="50px">
+                @Html.DisplayNameFor(model => model.NormalizedBranch)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Courses.CourseId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Courses.CourseType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Courses.CourseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Semester)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Degrees.NormalizedDegree)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NormalizedBranch)
+            </td>
+            <td>
+                <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" class="btn btn-warning" asp-route-id="@item.Id">Details</a> |
+                    <button asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id" onclick='myDeleteCoursesAssigned("/CoursesAssigned/Delete/@item.Id","@item.NormalizedDegree-@item.NormalizedBranch-@item.CourseId")'>Delete</button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<style>
+    .float-parent-element {
+        width: 100%;
+    }
+
+    .float-child-element1 {
+        float: left;
+        width: 50%;
+    }
+
+    .float-child-element2 {
+        float: right;
+        width: 50%;
+        padding: 15px 0px;
+    }
+</style>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

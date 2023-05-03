@@ -5,7 +5,9 @@
     ViewData["ActivePage"] = ManageNavPages.Index;
    
 }
-
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="-1" />
 <div class="row">
 <h3>@ViewData["Title"]</h3>
 <partial name="_StatusMessage" for="StatusMessage" />
@@ -30,7 +32,7 @@
            
             <img id="profile-picture" type="image" src='~/Images/@Model.profilePicture' alt="Profile Picture">
             <label for="image-input">
-                <img type="image" src="/Images/Edit-Button.png" alt="Edit Button">
+                <img type="image" src="/Images/Edit-Button.png" alt="Edit Button" height="50px" width="50px">
             </label>
             <form id="image-input-form" method="post" enctype="multipart/form-data">
                 <input id="image-input" asp-for="Input.ProfilePicture" type="file" accept="image/*" onchange="document.getElementById('image-input-form').submit()" height="50px" width="50px" hidden />

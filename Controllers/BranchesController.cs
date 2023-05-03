@@ -66,21 +66,24 @@ namespace MileStone_Attendance_Management.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Branch,NormalizedBranch,NormalizedDegree")] Branches branches)
+        public async Task<IActionResult> Create([Bind("Id,Branch,NormalizedBranch,NormalizedDegree,Duration")] Branches branches)
         {
-            //if (ModelState.IsValid)
+            
             var degree = _context.Degrees.Find(branches.NormalizedDegree);
             branches.Degree = degree.Degree;
-            try
-            {
-                _context.Add(branches);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine($"Error: {e.Message}");
-            }
+            //if (ModelState.IsValid)
+            
+                try
+                {
+                    _context.Add(branches);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Error: {e.Message}");
+                }
+            
             return _context.Branches != null ?
                           View(_context.Branches.ToList()) :
                           Problem("Entity set 'ApplicationDbContext.Branches'  is null.");
@@ -125,6 +128,7 @@ namespace MileStone_Attendance_Management.Controllers
             branches.Branch = collection["Branch"];
             branches.NormalizedDegree = collection["NormalizedDegree"];
             branches.NormalizedBranch = collection["NormalizedBranch"];
+            branches.Duration = Convert.ToInt32(collection["Duration"]);
             if (ModelState.IsValid)
             {
                 try

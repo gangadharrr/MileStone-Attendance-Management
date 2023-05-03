@@ -6,7 +6,11 @@
 
 <div class="float-parent-element">
     <div class="float-child-element1">
-        <div class="red"> <h1>Courses</h1></div>
+        <div class="red"> 
+            <h1>Courses
+                <a asp-action="Index" asp-controller="CoursesAssigned" class="btn btn-sm btn-dark">Assign Courses</a>
+            </h1>
+        </div>
     </div>
     <div class="float-child-element2">
         <div class="yellow">
@@ -19,7 +23,7 @@
                     </label>
                     <input id="UploadedFile" name="UploadedFile" onchange="document.getElementById('UploadedFileForm').submit()" type="file" accept="text/csv" hidden />
                     <a asp-action="Create" class="btn btn-success">+ Create New</a>
-                    <button asp-action="DeleteAll" class="btn btn-danger" onclick='myDeleteCourse("/Courses/DeleteAll","Courses")'>Delete All</button>
+                    <button asp-action="DeleteAll" class="btn btn-danger" onclick='myDeleteAll("/Courses/DeleteAll","Courses")'>Delete All</button>
 
                 </p>
             </form>

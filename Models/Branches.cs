@@ -25,6 +25,10 @@ namespace MileStone_Attendance_Management.Models
         [Display(Name = "Normalized Degree")]
         [Required(ErrorMessage = "Normalized Degree Name is Required")]
         public string NormalizedDegree { get; set; }
+        [NotNull]
+        [Display(Name = "Duration")]
+        [Required(ErrorMessage = "Duration is Required")]
+        public int Duration { get; set; }
         public virtual Degrees Degrees { get; set; }
     }
 }

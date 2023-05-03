@@ -15,6 +15,13 @@ namespace MileStone_Attendance_Management
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+        /*    builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSession(options =>
+                {
+                    options.IdleTimeout = TimeSpan.FromSeconds(5);
+                    options.Cookie.SecurePolicy= CookieSecurePolicy.None;
+                }
+            );*/
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
@@ -39,7 +46,7 @@ namespace MileStone_Attendance_Management
             app.UseStaticFiles();
 
             app.UseRouting();
-
+          //  app.UseSession();
             app.UseAuthentication();
             app.UseAuthorization();
 

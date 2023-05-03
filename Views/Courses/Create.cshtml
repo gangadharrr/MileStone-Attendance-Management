@@ -5,23 +5,40 @@
 }
 
 <h1>Create</h1>
-
+<h4>Courses</h4>
 <table class="table">
     <thead>
         <tr>
-            <th>
+            <th width="150px">
                 @Html.DisplayNameFor(model => model.CourseId)
             </th>
-            <th>
+            <th width="150px">
                 @Html.DisplayNameFor(model => model.CourseType)
             </th>
-            <th>
+            <th >
                 @Html.DisplayNameFor(model => model.CourseName)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <form asp-action="Create" method="post">
+            <td>
+                <input name="CourseId" class="form-control" placeholder="@Html.DisplayNameFor(model => model.CourseId)" />
+            </td>
+            <td>
+                <input name="CourseType" class="form-control" placeholder="@Html.DisplayNameFor(model => model.CourseType)" />
+            </td>
+            <td>
+                <input name="CourseName" class="form-control" placeholder="@Html.DisplayNameFor(model => model.CourseName)" />
+            </td>
+            <td>
+                <button type="submit" class="btn btn-success">Apply</button> |
+                <a asp-action="Index" class="btn btn-warning">Cancel</a>
+            </td>
+            </form>
+        </tr>
         @foreach (var item in Model)
         {
             <tr>
@@ -41,23 +58,6 @@
                 </td>
             </tr>
         }
-        <tr>
-            <form asp-action="Create" method="post">
-            <td>
-                <input name="CourseId" class="form-control" placeholder="@Html.DisplayNameFor(model => model.CourseId)" />
-            </td>
-            <td>
-                <input name="CourseType" class="form-control" placeholder="@Html.DisplayNameFor(model => model.CourseType)" />
-            </td>
-            <td>
-                <input name="CourseName" class="form-control" placeholder="@Html.DisplayNameFor(model => model.CourseName)" />
-            </td>
-            <td>
-                <button type="submit" class="btn btn-success">Apply</button> |
-                <a asp-action="Index" class="btn btn-warning">Cancel</a>
-            </td>
-            </form>
-        </tr>
     </tbody>
 </table>
 @section Scripts {
