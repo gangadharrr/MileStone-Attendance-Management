@@ -389,7 +389,8 @@ namespace MileStone_Attendance_Management.Controllers
                 {
                     foreach (var item in courses)
                     {
-                        Delete(item.Id);
+                        _context.CoursesAssigned.Remove(item);
+                        _context.SaveChanges();
                     }
 
                     return RedirectToAction(nameof(Index));

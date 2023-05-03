@@ -172,30 +172,31 @@ namespace MileStone_Attendance_Management.Controllers
             {
                 return Problem("Entity set 'ApplicationDbContext.Courses'  is null.");
             }
-            var courses = _context.Courses != null ?
-                           _context.Courses.ToList() :
-                          new List<Courses>();
-            if (courses != null)
+
+            try 
             {
-                try 
+                var courses = _context.Courses != null ?
+                               _context.Courses.ToList() :
+                              new List<Courses>();
+                if (courses != null)
                 {
                     foreach (var item in courses)
-                    { 
-                        Delete(item.CourseId);
+                    {
+                        _context.Courses.Remove(item);
+                        _context.SaveChanges();
                     }
-
                     return RedirectToAction(nameof(Index));
                 }
-                catch(DBConcurrencyException ex)
-                {
-                    return Problem(ex.Message);
 
-                }
-                catch (Exception ex)
-                {
-                    return Problem(ex.Message);
-                }
+            }
+            catch(DBConcurrencyException ex)
+            {
+                return Problem(ex.Message);
 
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
             }
             return RedirectToAction(nameof(Index));
             

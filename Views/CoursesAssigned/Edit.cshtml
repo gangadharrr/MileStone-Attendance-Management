@@ -39,6 +39,11 @@
                 <br />
                 <select class="form-select" name="Semester" id="Semester" required>
                     <option value="@Model.Semester" selected hidden>@Model.Semester</option>
+                    @foreach (var item in ViewBag.Duration[ViewBag.SelectedBranchNdDegree])
+                    {
+                        <option value="@item"  >@item </option>
+                        
+                    }
                 </select>
                 <span name="SemesterError" class="text-danger"></span>
             </div>

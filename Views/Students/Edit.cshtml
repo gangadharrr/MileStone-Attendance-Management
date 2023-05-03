@@ -13,47 +13,115 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control" placeholder="Name" />
                 <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <input type="hidden" asp-for="Email" />
+            </div><br />
             <div class="form-group">
-                <label asp-for="Batch" class="control-label"></label>
-                <input asp-for="Batch" class="form-control" />
-                <span asp-validation-for="Batch" class="text-danger"></span>
-            </div>
+                <input asp-for="Email" class="form-control" placeholder="Email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div><br />
             <div class="form-group">
-                <label asp-for="Section" class="control-label"></label>
-                <input asp-for="Section" class="form-control" />
-                <span asp-validation-for="Section" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RollNumber" class="control-label"></label>
-                <input asp-for="RollNumber" class="form-control" />
+                <input asp-for="RollNumber" class="form-control" placeholder="Roll Number" />
                 <span asp-validation-for="RollNumber" class="text-danger"></span>
+            </div><br />
+            <div class="form-group">
+                <select name="Section" id="Section" class="form-control" required>
+                    <option value="@Model.Section" selected hidden>@Model.Section</option>
+                    @foreach (var item in ViewBag.Sections)
+                    {
+                        <option value="@item">@item</option>
+                    }
+                </select>
+            </div><br />
+            <div class="form-group">
+                <select name="NormalizedDegree" id="NormalizedDegree" class="form-control" required>
+                    <option value="@Model.NormalizedDegree" selected hidden>@Model.NormalizedDegree</option>
+                    @foreach (var item in ViewBag.NormalizedDegree)
+                    {
+                        <option value="@item">@item</option>
+                    }
+
+                </select>
+            </div><br />
+            <div class="form-group" id="NormalizedBranchDiv">
+                <select name="NormalizedBranch" id="NormalizedBranch" class="form-control" required>
+                    <option value="@Model.NormalizedBranch" selected hidden>@Model.NormalizedBranch</option>
+                    @foreach(var item in ViewBag.BranchesList[Model.NormalizedDegree])
+                    {
+                        <option value="@item">@item</option>
+                    }
+                </select>
+                <br />
+            </div>
+            <div class="form-group" id="BatchDiv">
+                <select name="Batch" id="Batch" class="form-control" required>
+                    <option value="@Model.Batch" selected hidden>@Model.Batch</option>
+                    @foreach (var item in ViewBag.BatchList[Model.NormalizedDegree + Model.NormalizedBranch])
+                    {
+                        <option value="@item">@item</option>
+                    }
+                </select>
+                <br />
             </div>
             <div class="form-group">
-                <label asp-for="NormalizedDegree" class="control-label"></label>
-                <select asp-for="NormalizedDegree" class="form-control" asp-items="ViewBag.NormalizedDegree"></select>
-                <span asp-validation-for="NormalizedDegree" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NormalizedBranch" class="control-label"></label>
-                <input asp-for="NormalizedBranch" class="form-control" />
-                <span asp-validation-for="NormalizedBranch" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary"/>
+                <a asp-action="Index" class="btn btn-warning">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $('#NormalizedDegree').change(function () {
+                $('#Batch').hide();
+                var selectedValue = $(this).val();
+                var NormalizedBranch = $('#NormalizedBranch');
+                NormalizedBranch.empty();
+                NormalizedBranch.append($('<option>', {
+                    value: '',
+                    text: 'Select Branch',
+                    selected: true,
+                    disabled: true,
+                    hidden: true
+                }));
+                $.each(@Html.Raw(Json.Serialize(ViewBag.BranchesList)), function (key, value) {
+                    if (key === selectedValue) {
+                        $.each(value, function (index, branch) {
+                            NormalizedBranch.append($('<option>', {
+                                value: branch,
+                                text: branch
+                            }));
+                        });
+                    }
+                });
+            });
+            $('#NormalizedBranch').change(function () {
+                var selectedValue = $('#NormalizedDegree').val() + $(this).val();
+                var Batch = $('#Batch');
+                $('#Batch').show();
+                Batch.empty();
+                Batch.append($('<option>', {
+                    value: '',
+                    text: 'Select Batch',
+                    selected: true,
+                    disabled: true,
+                    hidden: true
+                }));
+                $.each(@Html.Raw(Json.Serialize(ViewBag.BatchList)), function (key, value) {
+                    if (key === selectedValue) {
+                        $.each(value, function (index, batch) {
+                            Batch.append($('<option>', {
+                                value: batch,
+                                text: batch
+                            }));
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 }

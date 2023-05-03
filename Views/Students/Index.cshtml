@@ -18,7 +18,7 @@
                     </label>
                     <input id="UploadedFile" name="UploadedFile" onchange="document.getElementById('UploadedFileForm').submit()" type="file" accept="text/csv" hidden />
                     <a asp-action="Create" class="btn btn-success">+ Create New</a>
-                    <button asp-action="DeleteAll" class="btn btn-danger" onclick='myDeleteAll("/CoursesAssigned/DeleteAll","Courses Assigned")'>Delete All</button>
+                    <button asp-action="DeleteAll" class="btn btn-danger" onclick='myDeleteAll("/Students/DeleteAll","Courses Assigned")'>Delete All</button>
 
                 </p>
             </form>
@@ -30,9 +30,6 @@
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Batch)
@@ -49,7 +46,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.NormalizedBranch)
             </th>
-            <th></th>
+            <th ></th>
         </tr>
     </thead>
     <tbody>
@@ -57,9 +54,6 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Batch)
@@ -78,31 +72,32 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Email" class="btn btn-primary">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Email" class="btn btn-warning">Details</a> |
-                    <button asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Email" onclick='myDeleteStudent("/Students/Delete/@item.Email","@item.RollNumber-@item.Name")'>Delete</button>
+                <a asp-action="Details" asp-route-id="@item.Email" class="btn btn-warning">Details</a> |
+                <button asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Email" onclick='myDeleteStudent("/Students/Delete/@item.Email","@item.RollNumber-@item.Name")'>Delete</button>
             </td>
         </tr>
 }
     </tbody>
 </table>
-<style>
-    .float-parent-element {
-        width: 100%;
-    }
 
-    .float-child-element1 {
-        float: left;
-        width: 50%;
-    }
-
-    .float-child-element2 {
-        float: right;
-        width: 50%;
-        padding: 15px 0px;
-    }
-</style>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <style>
+        .float-parent-element {
+            width: 100%;
+        }
+
+        .float-child-element1 {
+            float: left;
+            width: 50%;
+        }
+
+        .float-child-element2 {
+            float: right;
+            width: 50%;
+            padding: 15px 0px;
+        }
+    </style>
 }
