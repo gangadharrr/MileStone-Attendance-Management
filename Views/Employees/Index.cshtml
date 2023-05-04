@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MileStone_Attendance_Management.Models.CoursesAssigned>
+﻿@model IEnumerable<MileStone_Attendance_Management.Models.Employees>
 
 @{
     ViewData["Title"] = "Index";
@@ -6,7 +6,7 @@
 
 <div class="float-parent-element">
     <div class="float-child-element1">
-        <div class="red"> <h1>Courses Assigned</h1></div>
+        <div class="red"> <h1>Employees</h1></div>
     </div>
     <div class="float-child-element2">
         <div class="yellow">
@@ -18,7 +18,7 @@
                     </label>
                     <input id="UploadedFile" name="UploadedFile" onchange="document.getElementById('UploadedFileForm').submit()" type="file" accept="text/csv" hidden />
                     <a asp-action="Create" class="btn btn-success">+ Create New</a>
-                    <button asp-action="DeleteAll" class="btn btn-danger" onclick='myDeleteAll("/CoursesAssigned/DeleteAll","Courses Assigned")'>Delete All</button>
+                    <button asp-action="DeleteAll" class="btn btn-danger" onclick='myDeleteAll("/Employees/DeleteAll","Employees")'>Delete All</button>
 
                 </p>
             </form>
@@ -29,22 +29,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Courses.CourseId)
+                @Html.DisplayNameFor(model => model.EmployeeId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Courses.CourseType)
-            </th>
-            <th width="300px">
-                @Html.DisplayNameFor(model => model.Courses.CourseName)
+                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Semester)
-            </th>
-            <th width="50px">
-                @Html.DisplayNameFor(model => model.NormalizedDegree)
-            </th>
-            <th width="50px">
                 @Html.DisplayNameFor(model => model.NormalizedBranch)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Degrees)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Designation)
             </th>
             <th></th>
         </tr>
@@ -53,27 +50,24 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Courses.CourseId)
+                @Html.DisplayFor(modelItem => item.EmployeeId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Courses.CourseType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Courses.CourseName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Semester)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Degrees.NormalizedDegree)
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NormalizedBranch)
             </td>
             <td>
-                <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" class="btn btn-warning" asp-route-id="@item.Id">Details</a> |
-                    <button asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id" onclick='myDeleteCoursesAssigned("/CoursesAssigned/Delete/@item.Id","@item.NormalizedDegree-@item.NormalizedBranch-@item.CourseId")'>Delete</button>
+                @Html.DisplayFor(modelItem => item.Degrees.NormalizedDegree)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Roles.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Email" class="btn btn-primary">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Email" class="btn btn-warning">Details</a> |
+                <button asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Email" onclick='myDeleteEmployee("/Employees/Delete/@item.Email","@item.EmployeeId-@item.Name")'>Delete</button>
             </td>
         </tr>
 }
@@ -99,4 +93,5 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
 }

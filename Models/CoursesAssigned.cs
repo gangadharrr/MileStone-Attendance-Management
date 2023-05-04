@@ -17,12 +17,12 @@ namespace MileStone_Attendance_Management.Models
         public int Semester { get; set; }
 
         [ForeignKey("Degrees")]
-        [Display(Name = "Normalized Degree")]
-        [Required(ErrorMessage = "Normalized Degree is Required")]
+        [Display(Name = "Degree")]
+        [Required(ErrorMessage = "Degree is Required")]
         public string NormalizedDegree { get; set; }
 
-        [Display(Name = "Normalized Branch")]
-        [Required(ErrorMessage = "Normalized Branch is Required")]
+        [Display(Name = "Branch")]
+        [Required(ErrorMessage = "Branch is Required")]
         public string NormalizedBranch { get; set; }
         
         public virtual Degrees? Degrees { get; set; }

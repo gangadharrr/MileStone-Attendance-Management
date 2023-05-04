@@ -13,7 +13,7 @@ namespace MileStone_Attendance_Management
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString), ServiceLifetime.Singleton);
+                options.UseSqlServer(connectionString), ServiceLifetime.Scoped);
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
         /*    builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession(options =>
@@ -54,10 +54,10 @@ namespace MileStone_Attendance_Management
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             // Seeding Roles
-        /*    using (var scope = app.Services.CreateScope())
+/*            using (var scope = app.Services.CreateScope())
             {
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-                var roles = new[] { "Admin", "Attender","Professor" };
+                var roles = new[] { "Admin", "Attender","Professor","Student" };
                 foreach (var role in roles)
                 {
                     if (!await roleManager.RoleExistsAsync(role))

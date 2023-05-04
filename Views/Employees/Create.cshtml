@@ -1,0 +1,87 @@
+﻿@model MileStone_Attendance_Management.Models.Employees
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Employees</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input name="EmployeeId" placeholder="@Html.DisplayNameFor(m=>m.EmployeeId)" class="form-control" required />
+            </div><br />
+            <div class="form-group">
+                <input name="Name" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.Name)" required />
+            </div><br />
+            <div class="form-group">
+
+                <input name="Email" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.Email)" required/>
+            </div><br />
+            <div class="form-group">
+                <select  name="Designation" id="Designation" class="form-control" required>
+                    <option value="" selected disabled hidden>Select Designation</option>
+                    @foreach (var item in ViewBag.Designation)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+            </div><br />
+            <div class="form-group">
+                <select  name="NormalizedDegree" id="NormalizedDegree" class="form-control" required>
+                    <option value="" selected disabled hidden>Select Degree</option>
+                    @foreach (var item in ViewBag.NormalizedDegree)
+                    {
+                        <option value="@item.NormalizedDegree">@item.NormalizedDegree</option>
+                    }
+                </select>
+            </div><br/>
+            <div class="form-group" id="NormalizedBranchDiv">
+                <select name="NormalizedBranch" id="NormalizedBranch" class="form-control" required>
+                    <option value="" selected disabled hidden>Select Branch</option>
+                </select>
+                <br/>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-warning">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $("#NormalizedBranchDiv").hide();
+            $('#NormalizedDegree').change(function () {
+                var selectedValue = $(this).val();
+                var NormalizedBranch = $('#NormalizedBranch');
+                $("#NormalizedBranchDiv").show();
+                NormalizedBranch.empty();
+                NormalizedBranch.append($('<option>', {
+                    value: '',
+                    text: 'Select Branch',
+                    selected: true,
+                    disabled: true,
+                    hidden: true
+                }));
+                $.each(@Html.Raw(Json.Serialize(ViewBag.BranchesList)), function (key, value) {
+                    if (key === selectedValue) {
+                        $.each(value, function (index, branch) {
+                            NormalizedBranch.append($('<option>', {
+                                value: branch,
+                                text: branch
+                            }));
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

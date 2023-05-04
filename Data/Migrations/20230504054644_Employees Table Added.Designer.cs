@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MileStone_Attendance_Management.Data;
 
@@ -11,9 +12,10 @@ using MileStone_Attendance_Management.Data;
 namespace MileStone_Attendance_Management.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230504054644_Employees Table Added")]
+    partial class EmployeesTableAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -362,35 +364,6 @@ namespace MileStone_Attendance_Management.Data.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("MileStone_Attendance_Management.Models.SectionsAssigned", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("CourseId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("EmployeeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Section")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.ToTable("SectionsAssigned");
-                });
-
             modelBuilder.Entity("MileStone_Attendance_Management.Models.Students", b =>
                 {
                     b.Property<string>("Email")
@@ -527,25 +500,6 @@ namespace MileStone_Attendance_Management.Data.Migrations
                     b.Navigation("Degrees");
 
                     b.Navigation("Roles");
-                });
-
-            modelBuilder.Entity("MileStone_Attendance_Management.Models.SectionsAssigned", b =>
-                {
-                    b.HasOne("MileStone_Attendance_Management.Models.Courses", "Courses")
-                        .WithMany()
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MileStone_Attendance_Management.Models.Employees", "Employees")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Courses");
-
-                    b.Navigation("Employees");
                 });
 
             modelBuilder.Entity("MileStone_Attendance_Management.Models.Students", b =>

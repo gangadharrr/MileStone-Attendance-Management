@@ -1,0 +1,13 @@
+CourseId,CourseType,CourseName,Semester,NormalizedDegree,NormalizedBranch
+STA1101,THEORY,Part I Tamil I,1,B.Sc,PSY
+SFR1101,THEORY,Part I French I,1,B.Sc,PSY
+SHSA1102,THEORY,Part II General English I,2,B.Sc,PSY
+SPYA2201,PRACTICAL,Experimental Psychology I,2,B.Sc,PSY
+SPYA1101,THEORY,Basic Psychology I,3,B.Sc,PSY
+SPYA1102,THEORY,Biological Psychology,3,B.Sc,PSY
+SVCA1503,THEORY,Art and Aesthetic,4,B.Sc,PSY
+SPYA2301,PRACTICAL,Experimental Psychology II,4,B.Sc,PSY
+SBSA2102,THEORY,Computer Applications Lab,5,B.Sc,PSY
+STA1102,THEORY,Part I Tamil II,5,B.Sc,PSY
+SFR1102,THEORY,Part I French II,6,B.Sc,PSY
+SPYA2401,PRACTICAL,Experimental Psychology III,6,B.Sc,PSY

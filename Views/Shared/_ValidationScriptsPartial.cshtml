@@ -39,7 +39,14 @@
             window.open(link, '_self');
         }
     }function myDeleteStudent(link, Message) {
-        let text = "Are you sure you want to delete student " + Message + " ?";
+        let text = "Are you sure you want to delete Student " + Message + " ?";
+        let _link = link;
+        if (confirm(text) == true) {
+
+            window.open(link, '_self');
+        }
+    }function myDeleteEmployee(link, Message) {
+        let text = "Are you sure you want to delete Employee " + Message + " ?";
         let _link = link;
         if (confirm(text) == true) {
 

@@ -15,6 +15,9 @@ namespace MileStone_Attendance_Management.Data
         public DbSet<Courses> Courses { get; set; }
         public DbSet<CoursesAssigned> CoursesAssigned { get; set; }
         public DbSet<Students> Students { get; set; }
+        public DbSet<Employees> Employees { get; set; }
+        public DbSet<SectionsAssigned> SectionsAssigned { get; set; }
+
         /*  protected override void OnModelCreating(ModelBuilder builder)
           {
               *//*builder.Entity<Students>()

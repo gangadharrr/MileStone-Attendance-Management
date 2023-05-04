@@ -88,6 +88,7 @@ namespace MileStone_Attendance_Management.Controllers
                                 }
                                 else
                                 {
+                                    streamReader.Close();
                                     System.IO.File.Delete(filePath);
                                     return Problem("Incorrect Format of Fields Try Again");
                                 }
@@ -159,10 +160,6 @@ namespace MileStone_Attendance_Management.Controllers
             foreach (var degree in _context.Degrees.ToList())
             {
                 _branchesList.Add(degree.NormalizedDegree,_context.Branches.Where(m => m.NormalizedDegree == degree.NormalizedDegree).Select(m => m.NormalizedBranch).ToList());
-                foreach(var  item in _branchesList[degree.NormalizedDegree])
-                {
-                    Console.WriteLine(item);
-                }
             }
             ViewBag.BranchesList = _branchesList;
             Dictionary<string,List<string>> _batchList=new Dictionary<string,List<string>>();

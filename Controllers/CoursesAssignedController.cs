@@ -78,6 +78,7 @@ namespace MileStone_Attendance_Management.Controllers
                                 }
                                 else
                                 {
+                                    streamReader.Close();
                                     System.IO.File.Delete(filePath);
                                     return Problem("Incorrect Format of Fields Try Again");
                                 }
@@ -108,6 +109,7 @@ namespace MileStone_Attendance_Management.Controllers
                     }
                     catch (Exception e)
                     {
+                        streamReader.Close();
                         System.IO.File.Delete(filePath);
                         return Problem("Forien Key error Check the courses, Degrees and Branches"+e.Message);
                     }
@@ -378,7 +380,7 @@ namespace MileStone_Attendance_Management.Controllers
             }
             if (_context.CoursesAssigned == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Courses'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.CoursesAssigned'  is null.");
             }
             var courses = _context.CoursesAssigned != null ?
                            _context.CoursesAssigned.ToList() :
