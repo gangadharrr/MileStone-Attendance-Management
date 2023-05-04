@@ -10,23 +10,23 @@ using MileStone_Attendance_Management.Models;
 
 namespace MileStone_Attendance_Management.Controllers
 {
-    public class SectionsAssignedsController : Controller
+    public class SectionsAssignedController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public SectionsAssignedsController(ApplicationDbContext context)
+        public SectionsAssignedController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: SectionsAssigneds
+        // GET: SectionsAssigned
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.SectionsAssigned.Include(s => s.Courses).Include(s => s.Employees);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: SectionsAssigneds/Details/5
+        // GET: SectionsAssigned/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.SectionsAssigned == null)
@@ -46,20 +46,20 @@ namespace MileStone_Attendance_Management.Controllers
             return View(sectionsAssigned);
         }
 
-        // GET: SectionsAssigneds/Create
+        // GET: SectionsAssigned/Create
         public IActionResult Create()
         {
             ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "CourseId");
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Email", "Email");
+            ViewData["Email"] = new SelectList(_context.Employees, "Email", "Email");
             return View();
         }
 
-        // POST: SectionsAssigneds/Create
+        // POST: SectionsAssigned/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,EmployeeId,CourseId,Section")] SectionsAssigned sectionsAssigned)
+        public async Task<IActionResult> Create([Bind("Id,Email,CourseId,Section")] SectionsAssigned sectionsAssigned)
         {
             if (ModelState.IsValid)
             {
@@ -68,11 +68,11 @@ namespace MileStone_Attendance_Management.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "CourseId", sectionsAssigned.CourseId);
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Email", "Email", sectionsAssigned.EmployeeId);
+            ViewData["Email"] = new SelectList(_context.Employees, "Email", "Email", sectionsAssigned.Email);
             return View(sectionsAssigned);
         }
 
-        // GET: SectionsAssigneds/Edit/5
+        // GET: SectionsAssigned/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.SectionsAssigned == null)
@@ -86,16 +86,16 @@ namespace MileStone_Attendance_Management.Controllers
                 return NotFound();
             }
             ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "CourseId", sectionsAssigned.CourseId);
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Email", "Email", sectionsAssigned.EmployeeId);
+            ViewData["Email"] = new SelectList(_context.Employees, "Email", "Email", sectionsAssigned.Email);
             return View(sectionsAssigned);
         }
 
-        // POST: SectionsAssigneds/Edit/5
+        // POST: SectionsAssigned/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,EmployeeId,CourseId,Section")] SectionsAssigned sectionsAssigned)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Email,CourseId,Section")] SectionsAssigned sectionsAssigned)
         {
             if (id != sectionsAssigned.Id)
             {
@@ -123,11 +123,11 @@ namespace MileStone_Attendance_Management.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "CourseId", sectionsAssigned.CourseId);
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Email", "Email", sectionsAssigned.EmployeeId);
+            ViewData["Email"] = new SelectList(_context.Employees, "Email", "Email", sectionsAssigned.Email);
             return View(sectionsAssigned);
         }
 
-        // GET: SectionsAssigneds/Delete/5
+        // GET: SectionsAssigned/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.SectionsAssigned == null)
@@ -147,7 +147,7 @@ namespace MileStone_Attendance_Management.Controllers
             return View(sectionsAssigned);
         }
 
-        // POST: SectionsAssigneds/Delete/5
+        // POST: SectionsAssigned/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

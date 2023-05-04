@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MileStone_Attendance_Management.Data;
 
@@ -11,9 +12,10 @@ using MileStone_Attendance_Management.Data;
 namespace MileStone_Attendance_Management.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230504171605_SectionsAssigned Table Added 2")]
+    partial class SectionsAssignedTableAdded2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -374,7 +376,7 @@ namespace MileStone_Attendance_Management.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("EmployeeId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -386,7 +388,7 @@ namespace MileStone_Attendance_Management.Data.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.HasIndex("Email");
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("SectionsAssigned");
                 });
@@ -539,7 +541,7 @@ namespace MileStone_Attendance_Management.Data.Migrations
 
                     b.HasOne("MileStone_Attendance_Management.Models.Employees", "Employees")
                         .WithMany()
-                        .HasForeignKey("Email")
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

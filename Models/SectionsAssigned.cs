@@ -11,9 +11,9 @@ namespace MileStone_Attendance_Management.Models
         [Key]
         public int Id { get; set; }
         [ForeignKey("Employees")]
-        [Display(Name = "Employee ID")]
-        [Required(ErrorMessage = "Employee ID is Required")]
-        public string EmployeeId { get; set; }
+        [Display(Name = "Employee Email")]
+        [Required(ErrorMessage = "Employee Email is Required")]
+        public string Email { get; set; }
         [ForeignKey("Courses")]
         [Display(Name = "Course Id")]
         [Required(ErrorMessage = "Course Id is Required")]
