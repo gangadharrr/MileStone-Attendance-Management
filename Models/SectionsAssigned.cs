@@ -21,6 +21,8 @@ namespace MileStone_Attendance_Management.Models
         [Display(Name = "Section")]
         [Required(ErrorMessage = "Section is Required")]
         public string Section { get; set; }
+        public string NormalizedDegree { get; set; } = " ";
+        public string NormalizedBranch { get; set; } = " ";
         public virtual Employees? Employees { get; set; }
         public virtual Courses? Courses { get; set; }
     }

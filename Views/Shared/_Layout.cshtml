@@ -40,6 +40,15 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="SectionsAssigned" asp-action="Index">Sections</a>
                             </li>
                         }
+                        else if (User.IsInRole("Attender"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="CoursesAssignedGeneral" asp-action="Index">Courses</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="AttenderSectionsAssigned" asp-action="Index">Sections</a>
+                            </li>
+                        }
                         else
                         {
                             <li class="nav-item">
@@ -54,7 +63,7 @@
     </header>
     @if (User.IsInRole("Admin")||User.IsInRole("Attender")||User.IsInRole("Professor")||User.IsInRole("Student"))
     {
-    <div class="container" style="min-height:495px">
+    <div class="container" style="min-height:489px">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

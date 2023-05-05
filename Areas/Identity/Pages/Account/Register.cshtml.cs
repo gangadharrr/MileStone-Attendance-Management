@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using MileStone_Attendance_Management.Data;
 
 namespace MileStone_Attendance_Management.Areas.Identity.Pages.Account
 {
@@ -29,12 +30,15 @@ namespace MileStone_Attendance_Management.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ApplicationDbContext _context;
+
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
+            ApplicationDbContext context,
             IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -43,6 +47,7 @@ namespace MileStone_Attendance_Management.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         /// <summary>
@@ -110,7 +115,14 @@ namespace MileStone_Attendance_Management.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            if (ModelState.IsValid)
+            var _employee=_context.Employees.Find(Input.Email);
+            var _student=_context.Students.Find(Input.Email);
+            if(_employee==null&&_student==null)
+            {
+                ModelState.AddModelError(string.Empty,"Email Doesn't Registered With MileStone");
+                return Page();
+            }
+            if (ModelState.IsValid )
             {
                 var user = CreateUser();
 

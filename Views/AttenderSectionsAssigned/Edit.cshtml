@@ -1,0 +1,105 @@
+﻿@model MileStone_Attendance_Management.Models.SectionsAssigned
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>SectionsAssigned</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <select name="Email" id="Email" class="form-control" required>
+                    <option value="@Model.Email" selected hidden>@Model.Email</option>
+                    @foreach (var item in ViewBag.Email)
+                    {
+                        <option value="@item.Email">@item.Name</option>
+                    }
+                </select>
+            </div><br />
+            <div class="form-group" id="CoursesDiv">
+                <select name="CourseId" id="CourseId" class="form-control" required>
+                    <option value="@Model.CourseId" selected hidden>@Model.CourseId</option>
+                    @foreach (var item in ViewBag.CoursesList[Model.Email])
+                    {
+                        <option value="@item.Split("-")[0]">@item</option>
+                    }
+                </select><br />
+            </div>
+            <div class="form-group" id="SectionsDiv">
+                <select name="Section" id="Section" class="form-control" required>
+                    <option value="@Model.Section" selected hidden>@Model.Section</option>
+                    @foreach (var item in ViewBag.SectionsList[$"{Model.Email}{Model.CourseId}"])
+                    {
+                        <option value="@item">@item</option>
+                    }
+                </select><br />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-warning">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            $('#Email').change(function () {
+                var selectedValue = $(this).val();
+                $("#SectionsDiv").hide();
+                var CourseId = $('#CourseId');
+                CourseId.empty();
+                CourseId.append($('<option>', {
+                    value: '',
+                    text: 'Select Course',
+                    selected: true,
+                    disabled: true,
+                    hidden: true
+                }));
+                $.each(@Html.Raw(Json.Serialize(ViewBag.CoursesList)), function (key, value) {
+                    if (key === selectedValue) {
+                        $.each(value, function (index, course) {
+                            CourseId.append($('<option>', {
+                                value: course.split("-")[0],
+                                text: course
+                            }));
+                        });
+                    }
+                });
+            });
+            $('#CourseId').change(function () {
+                var selectedValue = $('#Email').val() + $(this).val();
+                var Section = $('#Section');
+                $("#SectionsDiv").show();
+                Section.empty();
+                Section.append($('<option>', {
+                    value: '',
+                    text: 'Select Section',
+                    selected: true,
+                    disabled: true,
+                    hidden: true
+                }));
+                $.each(@Html.Raw(Json.Serialize(ViewBag.SectionsList)), function (key, value) {
+                    if (key === selectedValue) {
+                        $.each(value, function (index, section) {
+                            Section.append($('<option>', {
+                                value: section,
+                                text: section
+                            }));
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

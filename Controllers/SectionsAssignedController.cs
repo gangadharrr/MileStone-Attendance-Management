@@ -13,7 +13,7 @@ using MileStone_Attendance_Management.Models;
 
 namespace MileStone_Attendance_Management.Controllers
 {
-    [Authorize(Roles = "Admin,Attender")]
+    [Authorize(Roles = "Admin")]
     public class SectionsAssignedController : Controller
     {
         private readonly ApplicationDbContext _context;

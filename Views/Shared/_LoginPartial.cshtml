@@ -7,7 +7,7 @@
 {
         <li class="nav-item" align=right >
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" style="padding:12px 5px">
-                @if (System.IO.File.Exists(@"C:\Users\Star\source\repos\MileStone Attendance Management\wwwroot\Images\tagbotroadster@gmail.com.jpg")){
+                @if (System.IO.File.Exists($"C:/Users/Star/source/repos/MileStone Attendance Management/wwwroot/Images/{User.Identity?.Name}.jpg")){
                     <img id="profile-picture-nav" src='/Images/@string.Join('.',User.Identity?.Name,"jpg")'  />
                 }
                 else
@@ -36,8 +36,8 @@ else
 </ul>
 <style>
     #profile-picture-nav {
-        height:10%;
-        width:10%;
+        height:39px;
+        width:39px;
         border-radius: 50%;
     }
 
