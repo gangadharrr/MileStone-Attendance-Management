@@ -5,8 +5,8 @@
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-        <li class="nav-item" align=right>
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+        <li class="nav-item" align=right >
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" style="padding:12px 5px">
                 @if (System.IO.File.Exists(@"C:\Users\Star\source\repos\MileStone Attendance Management\wwwroot\Images\tagbotroadster@gmail.com.jpg")){
                     <img id="profile-picture-nav" src='/Images/@string.Join('.',User.Identity?.Name,"jpg")'  />
                 }

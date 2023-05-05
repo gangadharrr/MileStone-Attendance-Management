@@ -32,7 +32,15 @@
         }
     }
     function myDeleteCoursesAssigned(link, Message) {
-        let text = "Are you sure you want to delete " + Message + " ?";
+        let text = "Are you sure you want to delete Course Assigned " + Message + " ?";
+        let _link = link;
+        if (confirm(text) == true) {
+
+            window.open(link, '_self');
+        }
+    }
+        function myDeleteSectionsAssigned(link, Message) {
+        let text = "Are you sure you want to delete Section Assigned" + Message + " ?";
         let _link = link;
         if (confirm(text) == true) {
 

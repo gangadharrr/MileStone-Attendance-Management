@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MileStone_Attendance_Management.Models.Students>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Students";
 }
 
 <div class="float-parent-element">
@@ -19,9 +19,9 @@
                     <input id="UploadedFile" name="UploadedFile" onchange="document.getElementById('UploadedFileForm').submit()" type="file" accept="text/csv" hidden />
                     <a asp-action="Create" class="btn btn-success">+ Create New</a>
                     <button asp-action="DeleteAll" class="btn btn-danger" onclick='myDeleteAll("/Students/DeleteAll","Students")'>Delete All</button>
-
                 </p>
             </form>
+            
         </div>
     </div>
 </div>

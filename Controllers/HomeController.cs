@@ -6,7 +6,6 @@ using System.Diagnostics;
 
 namespace MileStone_Attendance_Management.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -23,7 +22,6 @@ namespace MileStone_Attendance_Management.Controllers
         {
             return View();
         }
-        [Authorize(Roles ="Admin")]
         public IActionResult Privacy()
         {
             return View();

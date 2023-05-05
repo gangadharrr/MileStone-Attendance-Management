@@ -167,7 +167,7 @@ namespace MileStone_Attendance_Management.Controllers
             {
                 List<string> _dateString = new List<string>();
                 var dateOnly = DateTime.Now.Year;
-                for (int i=dateOnly - branch.Duration+1; i <= dateOnly;i++)
+                for (int i=dateOnly - branch.Duration; i < dateOnly;i++)
                 {
                     _dateString.Add($"{i}-{i+branch.Duration}");
                 }
@@ -217,7 +217,7 @@ namespace MileStone_Attendance_Management.Controllers
             {
                 List<string> _dateString = new List<string>();
                 var dateOnly = DateTime.Now.Year;
-                for (int i = dateOnly - branch.Duration + 1; i <= dateOnly; i++)
+                for (int i = dateOnly - branch.Duration; i < dateOnly; i++)
                 {
                     _dateString.Add($"{i}-{i + branch.Duration}");
                 }
@@ -258,7 +258,7 @@ namespace MileStone_Attendance_Management.Controllers
             {
                 List<string> _dateString = new List<string>();
                 var dateOnly = DateTime.Now.Year;
-                for (int i = dateOnly - branch.Duration + 1; i <= dateOnly; i++)
+                for (int i = dateOnly - branch.Duration; i < dateOnly; i++)
                 {
                     _dateString.Add($"{i}-{i + branch.Duration}");
                 }
@@ -295,7 +295,7 @@ namespace MileStone_Attendance_Management.Controllers
             {
                 List<string> _dateString = new List<string>();
                 var dateOnly = DateTime.Now.Year;
-                for (int i = dateOnly - branch.Duration + 1; i <= dateOnly; i++)
+                for (int i = dateOnly - branch.Duration; i < dateOnly; i++)
                 {
                     _dateString.Add($"{i}-{i + branch.Duration}");
                 }

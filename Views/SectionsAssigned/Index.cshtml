@@ -1,14 +1,23 @@
 ﻿@model IEnumerable<MileStone_Attendance_Management.Models.SectionsAssigned>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = " Sections Assigned";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div class="float-parent-element">
+    <div class="float-child-element1">
+        <div class="red"> <h1>Sections Assigned</h1></div>
+    </div>
+    <div class="float-child-element2">
+        <div class="yellow">
+                <p align="right">
+                    <a asp-action="Index" class="btn btn-primary">&#8634;</a>
+                    <a asp-action="Create" class="btn btn-success">+ Create New</a>
+                    <button asp-action="DeleteAll" class="btn btn-danger" onclick='myDeleteAll("/SectionsAssigned/DeleteAll","Sections Assigned")'>Delete All</button>
+                </p>
+        </div>
+    </div>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -37,11 +46,32 @@
                 @Html.DisplayFor(modelItem => item.Courses.CourseId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" class="btn btn-warning" asp-route-id="@item.Id">Details</a> |
+                    <button asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id" onclick='myDeleteSectionsAssigned("/SectionsAssigned/Delete/@item.Id","@item.Employees.Email-@item.Courses.CourseName-@item.CourseId")'>Delete</button>
             </td>
         </tr>
 }
     </tbody>
 </table>
+<style>
+    .float-parent-element {
+        width: 100%;
+    }
+
+    .float-child-element1 {
+        float: left;
+        width: 50%;
+    }
+
+    .float-child-element2 {
+        float: right;
+        width: 50%;
+        padding: 15px 0px;
+    }
+</style>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

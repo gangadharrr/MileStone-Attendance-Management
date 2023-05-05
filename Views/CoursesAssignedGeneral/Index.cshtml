@@ -1,0 +1,64 @@
+﻿@model IEnumerable<MileStone_Attendance_Management.Models.CoursesAssigned>
+
+@{
+    ViewData["Title"] = "Courses";
+}
+ <h1>List Of Courses</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Courses.CourseId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Courses.CourseType)
+            </th>
+            <th >
+                @Html.DisplayNameFor(model => model.Courses.CourseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Semester)
+            </th>
+            <th >
+                @Html.DisplayNameFor(model => model.NormalizedDegree)
+            </th>
+            <th >
+                @Html.DisplayNameFor(model => model.NormalizedBranch)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Courses.CourseId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Courses.CourseType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Courses.CourseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Semester)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Degrees.NormalizedDegree)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NormalizedBranch)
+            </td>
+            <td>
+                    <a asp-action="Details" class="btn btn-warning" asp-route-id="@item.Id">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
