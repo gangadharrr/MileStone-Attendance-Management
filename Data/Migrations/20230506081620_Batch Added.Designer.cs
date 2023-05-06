@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MileStone_Attendance_Management.Data;
 
@@ -11,9 +12,10 @@ using MileStone_Attendance_Management.Data;
 namespace MileStone_Attendance_Management.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230506081620_Batch Added")]
+    partial class BatchAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -226,12 +228,6 @@ namespace MileStone_Attendance_Management.Data.Migrations
 
             modelBuilder.Entity("MileStone_Attendance_Management.Models.Attendance", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
                     b.Property<int>("AttendanceId")
                         .HasColumnType("int");
 
@@ -249,11 +245,12 @@ namespace MileStone_Attendance_Management.Data.Migrations
                     b.Property<int>("RollNumber")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
                     b.HasIndex("AttendanceId");
 
                     b.HasIndex("Email");
+
+                    b.HasIndex("RollNumber")
+                        .IsUnique();
 
                     b.ToTable("Attendance");
                 });

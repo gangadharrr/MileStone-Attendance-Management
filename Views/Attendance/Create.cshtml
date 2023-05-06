@@ -1,0 +1,68 @@
+﻿@model MileStone_Attendance_Management.Models.AttendanceHistory
+
+@{
+    ViewData["Title"] = "Create";
+}
+<table>
+    <tr>
+        <td>
+            <h4>Attendance</h4>
+        </td><td></td>
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <td>
+            <select name="CourseId" id="CourseId" class ="form-control" placeholder="Course" >
+                <option value="" selected disable hidden >Select Course</option>
+                @foreach(var item in ViewBag.CoursesId)
+                {
+                    <option value="@item.Split("-")[0]">@item</option>
+                }
+            </select>
+        </td>
+        <td></td>
+        <td>
+            <select name="Section" id="Section"class="form-control" placeholder="Course">
+            </select>
+        </td>
+        <td style="padding:0px 200px" >
+            <input type="submit" value="Submit" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn-warning">Cancel</a>
+        </td>
+        </form>
+        
+    </tr>
+
+</table>
+<hr />
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $("#Section").hide();
+            $('#CourseId').change(function () {
+                var selectedValue = $(this).val();
+                var Section = $('#Section');
+                $("#Section").show();
+                Section.empty();
+                Section.append($('<option>', {
+                    value: '',
+                    text: 'Select Section',
+                    selected: true,
+                    disabled: true,
+                    hidden: true
+                }));
+                $.each(@Html.Raw(Json.Serialize(ViewBag.SectionsList)), function (key, value) {
+                    if (key === selectedValue) {
+                        $.each(value, function (index, section) {
+                            Section.append($('<option>', {
+                                value: section,
+                                text: section
+                            }));
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

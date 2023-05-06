@@ -1,0 +1,84 @@
+﻿@model MileStone_Attendance_Management.Models.AttendanceHistory
+@{
+    ViewData["Title"] = "Attendance Sheet";
+}
+<table>
+    <tr style="text-size-adjust:auto">
+        <td>
+            <b>Degree :</b> @ViewBag.AttendanceHistory.NormalizedDegree
+        </td>
+        <td>
+            <b>Branch :</b> @ViewBag.AttendanceHistory.NormalizedBranch
+        </td>
+        <td>
+            <b>Section :</b> @ViewBag.AttendanceHistory.Section
+        </td>
+    </tr>
+    <tr>
+        <td width="400px">
+            <b>Course :</b> @ViewBag.AttendanceHistory.CourseId-@ViewBag.AttendanceHistory.Courses.CourseName
+        </td>
+        <td width="300px">
+            <b>Batch :</b> @ViewBag.AttendanceHistory.Batch
+        </td>
+        <td width ="300px">
+            <b>Date and Time :</b> @ViewBag.AttendanceHistory.TimeStamp
+        </td>
+        <th>
+            <a class="btn btn-success" asp-action="Index">Submit</a>
+        </th>
+    </tr>
+</table>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Roll Number
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Present Status
+            </th>
+            <th></th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        
+        @foreach (var item in ViewBag.AttendanceList)
+        {
+            <tr>
+                <td>
+                    @item.RollNumber
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @if (Convert.ToBoolean(item.PresentStatus))
+                    {
+                        <a asp-action="AttendanceSheets" onmouseleave="
+                            var bttn1 = document.getElementById('Present-@item.Id')
+                            bttn1.classList = 'btn btn-sm btn-outline-success';
+                            bttn1.innerHTML = 'Present';" onmouseover=" var bttn2 = document.getElementById('Present-@item.Id')
+                           bttn2.classList='btn btn-sm btn-danger' ;
+                           bttn2.innerHTML='Absent' ;" id="Present-@item.Id" asp-route-Id="@item.Id" asp-route-CourseId="@ViewBag.AttendanceHistory.CourseId"
+                                   asp-route-Section="@ViewBag.AttendanceHistory.Section" class="btn btn-sm btn-outline-success">Present</a>
+                    }
+                    else{
+                        <a asp-action="AttendanceSheets" onmouseleave="var bttn3 = document.getElementById('Absent-@item.Id')
+                           bttn3.classList='btn btn-sm btn-outline-danger' ;
+                           bttn3.innerHTML='Absent' ;" onmouseover="   var bttn4 = document.getElementById('Absent-@item.Id' )
+                           bttn4.classList='btn btn-sm btn-success';
+                           bttn4.innerHTML='Present' ;" id="Absent-@item.Id" asp-route-Id="@item.Id" asp-route-CourseId="@ViewBag.AttendanceHistory.CourseId"
+                       asp-route-Section="@ViewBag.AttendanceHistory.Section" class="btn btn-sm btn-outline-danger">Absent</a>
+                    }
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>

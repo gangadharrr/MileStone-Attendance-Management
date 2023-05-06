@@ -1,0 +1,73 @@
+﻿@model MileStone_Attendance_Management.Models.AttendanceHistory
+@{
+    ViewData["Title"] = "Attendance Sheet";
+}
+<table>
+    <tr style="text-size-adjust:auto">
+        <td>
+            <b>Degree :</b> @ViewBag.AttendanceHistory.NormalizedDegree
+        </td>
+        <td>
+            <b>Branch :</b> @ViewBag.AttendanceHistory.NormalizedBranch
+        </td>
+        <td>
+            <b>Section :</b> @ViewBag.AttendanceHistory.Section
+        </td>
+    </tr>
+    <tr>
+        <td width="400px">
+            <b>Course :</b> @ViewBag.AttendanceHistory.CourseId-@ViewBag.AttendanceHistory.Courses.CourseName
+        </td>
+        <td width="300px">
+            <b>Batch :</b> @ViewBag.AttendanceHistory.Batch
+        </td>
+        <td width="300px">
+            <b>Date and Time :</b> @ViewBag.AttendanceHistory.TimeStamp
+        </td>
+        <th>
+            <a asp-action="Index" class="btn btn-warning">Back To List</a>
+        </th>
+    </tr>
+</table>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Roll Number
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Present Status
+            </th>
+            <th>
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in ViewBag.AttendanceList)
+        {
+            <tr>
+                <td>
+                    @item.RollNumber
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                @if (Convert.ToBoolean(item.PresentStatus))
+                {
+                    <td class="text-success">Present</td>
+                }
+                else
+                {
+                    <td class="text-danger">Absent</td>
+                }
+            </tr>
+        }
+
+    </tbody>
+</table>

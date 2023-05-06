@@ -1,0 +1,107 @@
+﻿@model IEnumerable<MileStone_Attendance_Management.Models.AttendanceHistory>
+
+@{
+    ViewData["Title"] = "Attendance";
+}
+
+<div class="float-parent-element">
+    <div class="float-child-element1">
+        <div class="red"> <h1>Attendance History</h1></div>
+    </div>
+    <div class="float-child-element2">
+        <div class="yellow">
+            <p align="right">
+                <a asp-action="Index" class="btn btn-primary">&#8634;</a>
+                @if(User.IsInRole("Professor"))
+                {
+                <a asp-action="Create" class="btn btn-success">+ Create New</a>
+                    
+                }
+            </p>
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NormalizedDegree)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NormalizedBranch)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Section)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeStamp)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Degrees.NormalizedDegree)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NormalizedBranch)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Section)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeStamp)
+            </td>
+           
+                @if(User.IsInRole("Attender")||User.IsInRole("Admin"))
+                { 
+                    <td>
+                        <a asp-action="AttendanceSheet" asp-route-id="@item.AttendanceId" asp-route-CourseId="@item.CourseId"
+                       asp-route-Section="item.Section" class="btn btn-primary">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.AttendanceId" asp-route-CourseId="@item.CourseId"
+                       asp-route-Section="item.Section" class="btn btn-warning">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.AttendanceId" class="btn btn-danger">Delete</a>
+                    </td>
+                }
+                @if(User.IsInRole("Professor"))
+                {
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.AttendanceId" asp-route-CourseId="@item.CourseId"
+                   asp-route-Section="item.Section" class="btn btn-warning">Details</a>
+                    </td>
+                }
+            
+        </tr>
+}
+    </tbody>
+</table>
+<style>
+    .float-parent-element {
+        width: 100%;
+    }
+
+    .float-child-element1 {
+        float: left;
+        width: 50%;
+    }
+
+    .float-child-element2 {
+        float: right;
+        width: 50%;
+        padding: 15px 0px;
+    }
+</style>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
