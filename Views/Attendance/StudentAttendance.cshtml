@@ -1,0 +1,91 @@
+﻿@model IEnumerable<MileStone_Attendance_Management.Models.Attendance>
+@{
+    ViewData["Title"] = "Attendance Report";
+}
+<h1>Attendance Report</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AttendanceHistory.NormalizedDegree)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AttendanceHistory.NormalizedBranch)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AttendanceHistory.Section)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AttendanceHistory.CourseId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AttendanceHistory.Courses.CourseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AttendanceHistory.TimeStamp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PresentStatus)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AttendanceHistory.NormalizedDegree)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AttendanceHistory.NormalizedBranch)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AttendanceHistory.Section)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AttendanceHistory.CourseId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AttendanceHistory.Courses.CourseName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AttendanceHistory.TimeStamp)
+                </td>
+                @if (Convert.ToBoolean(item.PresentStatus))
+                {
+                    
+                    <td class="btn btn-sm btn-outline-success">Present</td>
+                }
+                else
+                {
+                    <td class="btn btn-sm btn-outline-danger">Absent</td>
+                    
+                }
+                
+            </tr>
+        }
+    </tbody>
+</table>
+<style>
+    .float-parent-element {
+        width: 100%;
+    }
+
+    .float-child-element1 {
+        float: left;
+        width: 50%;
+    }
+
+    .float-child-element2 {
+        float: right;
+        width: 50%;
+        padding: 15px 0px;
+    }
+</style>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

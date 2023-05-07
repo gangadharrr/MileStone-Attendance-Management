@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Net;
+using System.Net.Http.Headers;
+using System.Reflection.Metadata;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -9,10 +14,17 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MileStone_Attendance_Management.Data;
 using MileStone_Attendance_Management.Models;
+using Newtonsoft.Json;
+using CsvHelper.Configuration;
+using CsvHelper;
+using System.Web;
+using System.Text;
+using CsvHelper;
+using System.Globalization;
 
 namespace MileStone_Attendance_Management.Controllers
 {
-    [Authorize(Roles ="Admin,Attender,Professor")]
+    [Authorize(Roles ="Admin,Attender,Professor,Student")]
     public class AttendanceController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -23,8 +35,8 @@ namespace MileStone_Attendance_Management.Controllers
             _context = context;
             _userManager = userManager;
         }
-
         // GET: Attendance
+        [Authorize(Roles = "Admin,Attender,Professor")]
         public async Task<IActionResult> Index()
         {
             
@@ -53,6 +65,7 @@ namespace MileStone_Attendance_Management.Controllers
         }
 
         // GET: Attendance/Details/5
+        [Authorize(Roles = "Admin,Attender,Professor")]
         public async Task<IActionResult> Details(string CourseId, string Section, int id)
         {
             ViewBag.CourseId = CourseId;
@@ -75,6 +88,7 @@ namespace MileStone_Attendance_Management.Controllers
         }
 
         // GET: Attendance/Create
+        [Authorize(Roles = "Professor")]
         public IActionResult Create()
         {
             var _professor = _context.Employees.Find(User.Identity?.Name);
@@ -103,6 +117,7 @@ namespace MileStone_Attendance_Management.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Professor")]
         public IActionResult Create(IFormCollection collection)
         {
             if (ModelState.IsValid)
@@ -130,7 +145,7 @@ namespace MileStone_Attendance_Management.Controllers
             ViewBag.SectionsList = _sectionsList;
             return View();
         }
-        
+        [Authorize(Roles = "Admin,Attender,Professor")]
         public async Task<IActionResult> AttendanceSheet(string CourseId,string Section,int id=0)
         {   
             ViewBag.CourseId = CourseId;
@@ -191,7 +206,7 @@ namespace MileStone_Attendance_Management.Controllers
             ViewBag.AttendanceList = attendances;
             return View(attendanceHistory);
         }
-      
+        [Authorize(Roles = "Admin,Attender,Professor")]
         public IActionResult AttendanceSheets(int Id,string CourseId, string Section)
         {
             var item = _context.Attendance.Find(Id);
@@ -243,7 +258,88 @@ namespace MileStone_Attendance_Management.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        [Authorize(Roles = "Student")]
+        public  IActionResult StudentAttendance()
+        {
+            var _student = _context.Students.Find(User.Identity?.Name);
+            var attendance = _context.Attendance.Where(m => m.RollNumber == _student.RollNumber).ToList();
+            foreach(var item in attendance) 
+            {
+                item.AttendanceHistory=_context.AttendanceHistory.Find(item.AttendanceId);
+                item.AttendanceHistory.Courses=_context.Courses.Find(item.AttendanceHistory.CourseId);
+            }
+            return View(attendance);
+        }
+        [Authorize(Roles = "Admin,Attender,Professor")]
+        public async Task<FileResult> Download(int id)
+        {
+            string Baseurl = "https://localhost:7214/";
+            string url = $"api/ApiAttendance/{id}";
 
+            string title = "output";
+            string text = "None";
+            byte[] byteArray = Encoding.ASCII.GetBytes(text);
+            MemoryStream stream = new MemoryStream(byteArray);
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Baseurl);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var Res = await client.GetAsync(url);
+                if (Res.IsSuccessStatusCode)
+                {
+                    var response = Res.Content.ReadAsStringAsync().Result;
+                    //var responseJSON = Res.Content.ReadAsStream();
+                    
+                    var model = JsonConvert.DeserializeObject<IEnumerable<CsvFileModel>>(response);
+                    title = "output";
+                    text = jsonToCSV(response);
+                    byteArray = Encoding.ASCII.GetBytes(text);
+                    stream = new MemoryStream(byteArray);
+
+                    return File(stream, "text/csv", $"{title}.csv");
+                }
+            }
+
+            return File(stream, "text/csv", $"{title}.csv");
+        
+        }
+        public static DataTable jsonStringToTable(string jsonContent)
+        {
+            DataTable dt = JsonConvert.DeserializeObject<DataTable>(jsonContent);
+            return dt;
+        }
+        public static string jsonToCSV(string jsonContent)
+        {
+            StringWriter csvString = new StringWriter();
+            var csvConfig = new CsvConfiguration(CultureInfo.CurrentCulture)
+            {
+                HasHeaderRecord = false
+            };
+            using (var csv = new CsvWriter(csvString, csvConfig))
+            {
+          
+
+                using (var dt = jsonStringToTable(jsonContent))
+                {
+                    foreach (DataColumn column in dt.Columns)
+                    {
+                        csv.WriteField(column.ColumnName);
+                    }
+                    csv.NextRecord();
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        for (var i = 0; i < dt.Columns.Count; i++)
+                        {
+                            csv.WriteField(row[i]);
+                        }
+                        csv.NextRecord();
+                    }
+                }
+            }
+            return csvString.ToString();
+        }
         private bool AttendanceHistoryExists(int id)
         {
           return (_context.AttendanceHistory?.Any(e => e.AttendanceId == id)).GetValueOrDefault();

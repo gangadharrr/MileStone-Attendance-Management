@@ -61,6 +61,14 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Attendance" asp-action="Index">Attendance</a>
                             </li>
                         }
+                        else if (User.IsInRole("Student"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="CoursesAssignedGeneral" asp-action="Index">Courses</a>
+                            </li><li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Attendance" asp-action="StudentAttendance">Attendance</a>
+                            </li>
+                        } 
                         else
                         {
                             <li class="nav-item">

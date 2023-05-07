@@ -30,7 +30,7 @@ namespace MileStone_Attendance_Management.Controllers
                 {
                     var _year = (course.Semester & 1) == 1 ? ((course.Semester+1)/2)-1 : ((course.Semester ) / 2)-1;
                     var _batch = (DateTime.Now.Month / 6)==0?DateTime.Now.Year - _year-1:DateTime.Now.Year - _year;
-                    var _endYear=_batch+_context.Branches.Where(m => m.NormalizedDegree == employee.NormalizedDegree && m.NormalizedBranch == employee.NormalizedBranch).Select(m => m.Duration).ToList()[0];
+                    var _endYear=_batch+_context.Branches.Where(m => m.NormalizedDegree == employee.NormalizedDegree && m.NormalizedBranch == employee.NormalizedBranch).Select(m => m.Duration).FirstOrDefault();
                     _sectionsList.Add($"{employee.Email}{course.CourseId}", _context.Students.Where(m => m.NormalizedDegree == employee.NormalizedDegree && m.NormalizedBranch == employee.NormalizedBranch&& m.Batch==$"{_batch}-{_endYear}").Select(m=>m.Section).Distinct().ToList());
 
                 }

@@ -69,14 +69,17 @@
                        asp-route-Section="item.Section" class="btn btn-primary">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.AttendanceId" asp-route-CourseId="@item.CourseId"
                        asp-route-Section="item.Section" class="btn btn-warning">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.AttendanceId" class="btn btn-danger">Delete</a>
+                            <a asp-action="Delete" asp-route-id="@item.AttendanceId" class="btn btn-danger">Delete</a> |
+                        <a asp-action="Download" asp-route-id="@item.AttendanceId" asp-route-CourseId="@item.CourseId"
+                   asp-route-Section="item.Section" class="btn btn-outline-success">Download</a>
                     </td>
                 }
                 @if(User.IsInRole("Professor"))
                 {
                     <td>
                         <a asp-action="Details" asp-route-id="@item.AttendanceId" asp-route-CourseId="@item.CourseId"
-                   asp-route-Section="item.Section" class="btn btn-warning">Details</a>
+                   asp-route-Section="item.Section" class="btn btn-warning">Details</a> |
+                        <a asp-action="Download" asp-route-id="@item.AttendanceId" class="btn btn-outline-success">Download</a>
                     </td>
                 }
             
