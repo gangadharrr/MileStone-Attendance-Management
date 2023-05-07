@@ -105,7 +105,7 @@ namespace MileStone_Attendance_Management.Controllers
                             employee.Name = csvReader.GetField<string>(1);
                             employee.Email = csvReader.GetField<string>(2);
                             employee.Designation = csvReader.GetField<string>(3);
-                            employee.Designation = _context.Roles.Where(m => m.Name == employee.Designation).Select(m => m.Id).ToList()[0];
+                            employee.Designation = _context.Roles.Where(m => m.Name == employee.Designation).Select(m => m.Id).FirstOrDefault();
                             employee.NormalizedDegree = csvReader.GetField<string>(4);
                             employee.NormalizedBranch = csvReader.GetField<string>(5);
                             employeeList.Add(employee);

@@ -278,7 +278,7 @@ namespace MileStone_Attendance_Management.Controllers
         public async Task<IActionResult> Edit(string id, IFormCollection collection)
         {
             Students students = new Students();
-            
+            try { 
             ViewBag.Sections = new List<char>() { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' };
             Dictionary<string, List<string>> _branchesList = new Dictionary<string, List<string>>();
             foreach (var degree in _context.Degrees.ToList())
@@ -305,7 +305,7 @@ namespace MileStone_Attendance_Management.Controllers
             ViewBag.BatchList = _batchList;
             ViewBag.NormalizedDegree = _context.Degrees.Select(m => m.NormalizedDegree).ToList();
             students.Name = collection["Name"].ToString();
-            students.Email = collection["Email"].ToString();
+            students.Email =id;
             students.RollNumber = Convert.ToInt32(collection["RollNumber"].ToString());
             students.Section = collection["Section"].ToString();
             students.NormalizedDegree = collection["NormalizedDegree"].ToString();
@@ -337,11 +337,9 @@ namespace MileStone_Attendance_Management.Controllers
             }
             ViewData["NormalizedDegree"] = new SelectList(_context.Degrees, "NormalizedDegree", "NormalizedDegree", students.NormalizedDegree);
             return View(students);
+            }catch(Exception ex) { return Problem(ex.Message); }
         }
 
-        
-
-   
         public async Task<IActionResult> Delete(string id)
         {
             if (_context.Students == null)

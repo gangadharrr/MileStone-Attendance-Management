@@ -1,25 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Net;
+﻿using System.Data;
 using System.Net.Http.Headers;
-using System.Reflection.Metadata;
-using System.Security.Policy;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MileStone_Attendance_Management.Data;
 using MileStone_Attendance_Management.Models;
 using Newtonsoft.Json;
 using CsvHelper.Configuration;
 using CsvHelper;
-using System.Web;
 using System.Text;
-using CsvHelper;
 using System.Globalization;
 
 namespace MileStone_Attendance_Management.Controllers
@@ -39,7 +29,7 @@ namespace MileStone_Attendance_Management.Controllers
         [Authorize(Roles = "Admin,Attender,Professor")]
         public async Task<IActionResult> Index()
         {
-            
+            try { 
             if (User.IsInRole("Professor"))
             {
                 List<AttendanceHistory> attendanceHistories = new List<AttendanceHistory>();
@@ -62,11 +52,16 @@ namespace MileStone_Attendance_Management.Controllers
             }
             var applicationDbContext = _context.AttendanceHistory.Include(a => a.Courses).Include(a => a.Degrees);
             return View(await applicationDbContext.ToListAsync());
+            }
+            catch (Exception ex) 
+            {
+                return Problem(ex.Message);
+            }
         }
 
         // GET: Attendance/Details/5
         [Authorize(Roles = "Admin,Attender,Professor")]
-        public async Task<IActionResult> Details(string CourseId, string Section, int id)
+        public IActionResult Details(string CourseId, string Section, int id)
         {
             ViewBag.CourseId = CourseId;
             ViewBag.Section = Section;
@@ -91,6 +86,7 @@ namespace MileStone_Attendance_Management.Controllers
         [Authorize(Roles = "Professor")]
         public IActionResult Create()
         {
+            try { 
             var _professor = _context.Employees.Find(User.Identity?.Name);
             var _sectionsAssigned= _context.SectionsAssigned.Where(m=>m.Employees.NormalizedDegree==_professor.NormalizedDegree&&m.Employees.NormalizedBranch == _professor.NormalizedBranch).ToList();
             ViewBag.SectionsAssigned = _sectionsAssigned;
@@ -110,6 +106,8 @@ namespace MileStone_Attendance_Management.Controllers
             }
             ViewBag.SectionsList= _sectionsList;
             return View();
+            }
+            catch(Exception ex) { return Problem(ex.Message); }
         }
 
         // POST: Attendance/Create
@@ -120,6 +118,7 @@ namespace MileStone_Attendance_Management.Controllers
         [Authorize(Roles = "Professor")]
         public IActionResult Create(IFormCollection collection)
         {
+            try { 
             if (ModelState.IsValid)
             {
                 return RedirectToAction(nameof(AttendanceSheet), new { CourseId = collection["CourseId"].ToString(), Section = collection["Section"].ToString() });
@@ -144,21 +143,25 @@ namespace MileStone_Attendance_Management.Controllers
             }
             ViewBag.SectionsList = _sectionsList;
             return View();
+            }
+            catch (Exception ex) { return Problem(ex.Message); }
         }
         [Authorize(Roles = "Admin,Attender,Professor")]
         public async Task<IActionResult> AttendanceSheet(string CourseId,string Section,int id=0)
         {   
             ViewBag.CourseId = CourseId;
             ViewBag.Section = Section;
-            var _professor = _context.Employees.Find(User.Identity?.Name);
-            var course = _context.CoursesAssigned.Where(m => m.NormalizedDegree == _professor.NormalizedDegree && m.NormalizedBranch == _professor.NormalizedBranch && m.CourseId == CourseId).ToList()[0];
-            var _year = (course.Semester & 1) == 1 ? ((course.Semester + 1) / 2) - 1 : ((course.Semester) / 2) - 1;
-            var _batch = (DateTime.Now.Month / 6) == 0 ? DateTime.Now.Year - _year - 1 : DateTime.Now.Year - _year;
-            var _endYear = _batch + _context.Branches.Where(m => m.NormalizedDegree == _professor.NormalizedDegree && m.NormalizedBranch == _professor.NormalizedBranch).Select(m => m.Duration).ToList()[0];
             AttendanceHistory attendanceHistory = new AttendanceHistory();
             List<Attendance> attendances = new List<Attendance>();
             try
             {
+                var _professor = _context.Employees.Find(User.Identity?.Name);
+                var course = _context.CoursesAssigned.Where(m => m.NormalizedDegree == _professor.NormalizedDegree && m.NormalizedBranch == _professor.NormalizedBranch && m.CourseId == CourseId).FirstOrDefault();
+                var _year = (course.Semester & 1) == 1 ? ((course.Semester + 1) / 2) - 1 : ((course.Semester) / 2) - 1;
+                var _batch = (DateTime.Now.Month / 6) == 0 ? DateTime.Now.Year - _year - 1 : DateTime.Now.Year - _year;
+                var _endYear = _batch + _context.Branches.Where(m => m.NormalizedDegree == _professor.NormalizedDegree && m.NormalizedBranch == _professor.NormalizedBranch).Select(m => m.Duration).FirstOrDefault();
+         
+            
                 if (_context.AttendanceHistory.Find(id==0?attendanceHistory.AttendanceId:id) == null) 
                 {
                     attendanceHistory.NormalizedDegree = _professor.NormalizedDegree;
@@ -292,7 +295,8 @@ namespace MileStone_Attendance_Management.Controllers
                     //var responseJSON = Res.Content.ReadAsStream();
                     
                     var model = JsonConvert.DeserializeObject<IEnumerable<CsvFileModel>>(response);
-                    title = "output";
+                    var attendanceHistory = _context.AttendanceHistory.Find(id);
+                    title = $"{attendanceHistory.NormalizedDegree}-{attendanceHistory.NormalizedBranch}-{attendanceHistory.Section}-{attendanceHistory.CourseId}-({attendanceHistory.TimeStamp})";
                     text = jsonToCSV(response);
                     byteArray = Encoding.ASCII.GetBytes(text);
                     stream = new MemoryStream(byteArray);
