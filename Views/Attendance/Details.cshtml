@@ -13,6 +13,10 @@
         <td>
             <b>Section :</b> @ViewBag.AttendanceHistory.Section
         </td>
+        <td>
+            <a asp-action="Download" asp-route-id="@Model.AttendanceId" 
+               asp-route-Section="item.Section" class="btn btn-success">Download</a>
+        </td>
     </tr>
     <tr>
         <td width="400px">
@@ -24,9 +28,9 @@
         <td width="300px">
             <b>Date and Time :</b> @ViewBag.AttendanceHistory.TimeStamp
         </td>
-        <th>
+        <td>
             <a asp-action="Index" class="btn btn-warning">Back To List</a>
-        </th>
+        </td>
     </tr>
 </table>
 <hr />

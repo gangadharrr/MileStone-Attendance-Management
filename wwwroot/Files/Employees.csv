@@ -1,0 +1,33 @@
+EmployeeId,Name,Email,Designation,NormalizedDegree,NormalizedBranch
+BECSE0000,DR.KUNAL BISWAS,kunalbiswas.irc@gmail.com,Professor,B.E,CSE
+BECSE0001,DR. SUDHA UTHAMAN,sudha.irc@gmail.com,Professor,B.E,CSE
+BECSE0002,Ms.K.SIDHIKA,sidhika.irc@gmail.com,Professor,B.E,CSE
+BECSE0003,MS.KUNJULAKSHMI K,kunjulakshmi.cccs@gmail.com,Professor,B.E,CSE
+BECSE0004,MS.SHRUTIKA RAUT,shrutikaraut.cccs@gmail.com,Professor,B.E,CSE
+BECSE0005,Dr. P.PRIYADHARSINI,priyadharsini.irc@gmail.com,Professor,B.E,CSE
+BEECE0006,MS.NIVETHA T,nivethanivitamilvanan22@gmail.com,Professor,B.E,ECE
+BEECE0007,Ms.ATHISTA M,athista.bioinfo@gmail.com,Professor,B.E,ECE
+BEECE0008,Mr.MICHAEL RAHUL SOOSAI,michaelrahulsooai.chemical@gmail.com,Professor,B.E,ECE
+BEECE0009,Dr.M.KARTHIKEYAN,karthikeyan.chemical@gmail.com,Professor,B.E,ECE
+BEECE0010,Dr.JAMES JOHN,jamesjohn.ahs@gmail.com,Professor,B.E,ECE
+BEECE0011,Ms.PRIYA S,priya.ahs@gmail.com,Professor,B.E,ECE
+BEMECH0012,Ms.D.JASMINE PRIYA,jasminiepriya.ahs@gmail.com,Professor,B.E,MECH
+BEMECH0013,Ms.KANYA S,kanya.ahs@gmail.com,Professor,B.E,MECH
+BEMECH0014,Dr.GAYATHRI P,gayathri.ahs@gmail.com,Professor,B.E,MECH
+BEMECH0015,Dr.S PADMA PRIYA,padmapriya.cnd@gmail.com,Professor,B.E,MECH
+BEMECH0016,Dr.SIVASAKTHI M,sivasakthi.irc@gmail.com,Professor,B.E,MECH
+BEMECH0017,Ms.M.ROSHNI,roshni.ahs@gmail.com,Professor,B.E,MECH
+BALLB0018,Mr.GOKULNATH,gokulnathmsc2@gmail.com,Professor,B.A,LLB
+BALLB0019,DR.R.P.OVIYA,oviya.biotech@gmail.com,Professor,B.A,LLB
+BALLB0020,DR.INDUMATHI S M,indumathi.biotech@gmail.com,Professor,B.A,LLB
+BALLB0021,DR.S.GRACY JENIFER,gracyjenifer.biotech@gmail.com,Professor,B.A,LLB
+BScPSY0022,Dr.S.JAYASHREE,jayashree.biotech@gmail.com,Professor,B.Sc,PSY
+BScPSY0023,Dr. JEMMY CHRISTY H,jemmychristy.bioinfo@gmail.com,Professor,B.Sc,PSY
+BScPSY0024,Dr. BALASANKAR KARAVADI,balasankar.bioinfo@gmail.com,Professor,B.Sc,PSY
+BScPSY0025,Dr. ANIMA NANDA,animananda.biomed@gmail.com,Professor,B.Sc,PSY
+BECSE0026,ALEX ANAND,alexanand.bioinfo@gmail.com,Attender,B.E,CSE
+BEECE0027,PREMKUMAR J,premkumar.biomed@gmail.com,Attender,B.E,ECE
+BEMECH0028,SUDHAKAR T,sudhakar.biomed@gmail.com,Attender,B.E,MECH
+BALLB0029,RAMESH KUMAR V,rameshkumar.biotech@gmail.com,Attender,B.A,LLB
+BScPSY0030,P.PRAKASH,prakash.biotech@gmail.com,Attender,B.Sc,PSY
+BECSE0031,TAGBOT,tagbotroadster@gmail.com,Admin,B.E,CSE

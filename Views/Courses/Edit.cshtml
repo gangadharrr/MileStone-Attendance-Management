@@ -29,7 +29,7 @@
                 <tr>
                     <form asp-action="Edit" method="post">
                         <td>
-                            <input name="CourseId" class="form-control" value="@item.CourseId" placeholder="@Html.DisplayNameFor(model => model.CourseId)" />
+                            <input name="CourseId" class="form-control" value="@item.CourseId" readonly placeholder="@Html.DisplayNameFor(model => model.CourseId)" />
                         </td>
                         <td>
                             <input name="CourseType" class="form-control" value="@item.CourseType" placeholder="@Html.DisplayNameFor(model => model.CourseType)" />

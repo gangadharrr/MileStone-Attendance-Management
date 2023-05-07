@@ -88,7 +88,7 @@ namespace MileStone_Attendance_Management.Controllers
         {
             try { 
             var _professor = _context.Employees.Find(User.Identity?.Name);
-            var _sectionsAssigned= _context.SectionsAssigned.Where(m=>m.Employees.NormalizedDegree==_professor.NormalizedDegree&&m.Employees.NormalizedBranch == _professor.NormalizedBranch).ToList();
+            var _sectionsAssigned= _context.SectionsAssigned.Where(m=>m.Employees.NormalizedDegree==_professor.NormalizedDegree&&m.Employees.NormalizedBranch == _professor.NormalizedBranch &&m.Email==_professor.Email).ToList();
             ViewBag.SectionsAssigned = _sectionsAssigned;
             ViewBag.CoursesId= _sectionsAssigned.Select(m=>$"{m.CourseId}-{_context.Courses.Find(m.CourseId).CourseName}").Distinct().ToList(); 
             Dictionary<string,List<string>> _sectionsList= new Dictionary<string,List<string>>();  
@@ -264,6 +264,7 @@ namespace MileStone_Attendance_Management.Controllers
         [Authorize(Roles = "Student")]
         public  IActionResult StudentAttendance()
         {
+            try { 
             var _student = _context.Students.Find(User.Identity?.Name);
             var attendance = _context.Attendance.Where(m => m.RollNumber == _student.RollNumber).ToList();
             foreach(var item in attendance) 
@@ -272,6 +273,7 @@ namespace MileStone_Attendance_Management.Controllers
                 item.AttendanceHistory.Courses=_context.Courses.Find(item.AttendanceHistory.CourseId);
             }
             return View(attendance);
+            }catch (Exception ex) { return Problem(ex.Message); }
         }
         [Authorize(Roles = "Admin,Attender,Professor")]
         public async Task<FileResult> Download(int id)
@@ -280,9 +282,10 @@ namespace MileStone_Attendance_Management.Controllers
             string url = $"api/ApiAttendance/{id}";
 
             string title = "output";
-            string text = "None";
+            string text = "Download Failed";
             byte[] byteArray = Encoding.ASCII.GetBytes(text);
             MemoryStream stream = new MemoryStream(byteArray);
+            try { 
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(Baseurl);
@@ -304,9 +307,10 @@ namespace MileStone_Attendance_Management.Controllers
                     return File(stream, "text/csv", $"{title}.csv");
                 }
             }
-
-            return File(stream, "text/csv", $"{title}.csv");
-        
+            }
+            catch { return File(stream, "text/csv", $"{title}.csv"); }
+            
+            return File(stream, "text/csv", $"{title}.csv"); 
         }
         public static DataTable jsonStringToTable(string jsonContent)
         {

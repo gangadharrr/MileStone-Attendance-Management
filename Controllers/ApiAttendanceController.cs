@@ -32,10 +32,10 @@ namespace MileStone_Attendance_Management.Controllers
         //[Authorize(Roles ="Admin,Attender,Professor")]
         public async Task<ActionResult<IEnumerable<CsvFileModel>>> GetAttendance(int id)
         {
-          if (_context.Attendance == null)
-          {
-              return NotFound();
-          }
+            if (_context.Attendance == null)
+            {
+                return NotFound();
+            }
             var attendance = await _context.Attendance.Where(m => m.AttendanceId == id).ToListAsync();
 
             var attendanceHistory=_context.AttendanceHistory.Find(id);
@@ -64,6 +64,8 @@ namespace MileStone_Attendance_Management.Controllers
                 csvFile.Add(csvField);
             }
             return csvFile;
+            
+            
         }
 
        

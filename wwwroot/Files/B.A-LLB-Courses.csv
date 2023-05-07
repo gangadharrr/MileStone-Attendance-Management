@@ -1,0 +1,21 @@
+CourseId,CourseType,CourseName,Semester,NormalizedDegree,NormalizedBranch
+SHS1111,CORE,Communicative English- I,1,B.A,LLB
+SAL1103,CORE,Law of Contracts and Specific Relief,1,B.A,LLB
+SAL1104,CORE,Law of Torts including MV Accident and Consumer Protection Laws,2,B.A,LLB
+SAL1303,CORE,Constitutional Law- I,2,B.A,LLB
+SAL1304,CORE,Family Law- I,3,B.A,LLB
+STA1103,AECC,Tamil,3,B.A,LLB
+SFR1103,AECC,French,4,B.A,LLB
+SBA1404,SEC,Personality Development,4,B.A,LLB
+SAL1203,CORE,Special Contracts,5,B.A,LLB
+SAL1204,CORE,"Jurisprudence (Legal method, Indian legal system and basic theory of law)",5,B.A,LLB
+SAL1401,CORE,Constitutional Law- II,6,B.A,LLB
+SAL1402,CORE,Family Law- II,6,B.A,LLB
+SAL1205,AECC,Environmental Studies,7,B.A,LLB
+SAL1503,SEC,Legal Language and Legal Writing,7,B.A,LLB
+SAL1305,CORE,Law of Crimes- I (IPC),8,B.A,LLB
+SAL1701,CORE,Public International Law,8,B.A,LLB
+SAL1702,CORE,Property Law,9,B.A,LLB
+SAL1801,CORE,Law of Evidence,9,B.A,LLB
+SAL1802,CORE,Administrative Law,10,B.A,LLB
+SBA1403,AECC,Disaster Management,10,B.A,LLB

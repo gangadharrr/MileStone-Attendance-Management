@@ -28,9 +28,14 @@ namespace MileStone_Attendance_Management.Controllers
         // GET: AttenderSectionsAssigned
         public async Task<IActionResult> Index()
         {
-            Employees _Attender = _context.Employees.Find(User.Identity.Name);
-            var applicationDbContext =  _context.SectionsAssigned.Include(s => s.Courses).Include(s => s.Employees);
-            return View(await applicationDbContext.Where(m => m.Employees.NormalizedDegree == _Attender.NormalizedDegree && m.Employees.NormalizedBranch == _Attender.NormalizedBranch).ToListAsync());
+            try
+            {
+                Employees _Attender = _context.Employees.Find(User.Identity.Name);
+                var applicationDbContext = _context.SectionsAssigned.Include(s => s.Courses).Include(s => s.Employees);
+                return View(await applicationDbContext.Where(m => m.Employees.NormalizedDegree == _Attender.NormalizedDegree && m.Employees.NormalizedBranch == _Attender.NormalizedBranch).ToListAsync());
+            
+            }catch (Exception ex) { return Problem(ex.Message);}
+
         }
 
         // GET: AttenderSectionsAssigned/Details/5
@@ -124,6 +129,7 @@ namespace MileStone_Attendance_Management.Controllers
             Dictionary<string, List<string>> _sectionsList = new Dictionary<string, List<string>>();
             Dictionary<string, List<string>> _coursesList = new Dictionary<string, List<string>>();
             Employees _Attender = _context.Employees.Find(User.Identity.Name);
+            _Attender.Roles = _context.Roles.Find(_Attender.Designation);
             foreach (var employee in _context.Employees.Where(m => m.NormalizedDegree == _Attender.NormalizedDegree && m.Roles.Name == "Professor").ToList())
             {
                 foreach (var course in _context.CoursesAssigned.Where(m => m.NormalizedDegree == employee.NormalizedDegree && m.NormalizedBranch == employee.NormalizedBranch).ToList())
@@ -150,7 +156,7 @@ namespace MileStone_Attendance_Management.Controllers
             }
             ViewBag.CoursesList = _coursesList;
             ViewBag.Email = _context.Employees.Where(m => m.NormalizedDegree == _Attender.NormalizedDegree && m.NormalizedBranch == _Attender.NormalizedBranch && m.Roles.Name == "Professor").ToList();
-
+            ViewBag.SectionsList = _sectionsList;
             return View(sectionsAssigned);
         }
 
@@ -203,6 +209,7 @@ namespace MileStone_Attendance_Management.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.SectionsList = _sectionsList;
             ViewBag.CoursesList = _coursesList;
             ViewBag.Email = _context.Employees.Where(m => m.NormalizedDegree == _Attender.NormalizedDegree && m.NormalizedBranch == _Attender.NormalizedBranch && m.Roles.Name == "Professor").ToList();
             return View(sectionsAssigned);
